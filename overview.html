@@ -116,7 +116,8 @@ tfoot td{background:#f0f4ff;font-weight:700;border-top:2px solid var(--accent);f
   html,body{background:#fff!important;font-size:9.5px!important;}
   .nav,.tabs-wrap,.filter-wrap,.btn,.btn-print,.no-print,
   .toolbar,.vat-bar,.sum-row{display:none!important;}
-  #panel-debit,#panel-salary{display:block!important;}
+  #panel-debit.print-active,#panel-salary.print-active{display:block!important;}
+  #panel-debit:not(.print-active),#panel-salary:not(.print-active){display:none!important;}
 
   /* Company header print */
   .company-header{
@@ -227,7 +228,7 @@ tfoot td{background:#f0f4ff;font-weight:700;border-top:2px solid var(--accent);f
 <div class="toolbar">
   <div class="toolbar-title">📊 TỔNG QUAN BÁO CÁO</div>
   <div style="display:flex;gap:8px;">
-    <button class="btn btn-print no-print" onclick="window.print()">🖨️ In</button>
+    <button class="btn btn-print no-print" onclick="markPrintActive();window.print()">🖨️ In</button>
     <button class="btn btn-accent no-print" onclick="exportPDF()">⬇️ Tải PDF</button>
   </div>
 </div>
@@ -890,13 +891,24 @@ window.exportDebit=function(){
 /* ══════════════════════════════════════
    EXPORT PDF
 ══════════════════════════════════════ */
+function markPrintActive(){
+  const isDebit = document.getElementById('tabDebit').classList.contains('active');
+  document.getElementById('panel-debit').classList.toggle('print-active', isDebit);
+  document.getElementById('panel-salary').classList.toggle('print-active', !isDebit);
+  // Ký tên: chỉ hiện đúng bảng
+  const signDebit = document.getElementById('signDebit');
+  const signSalary = document.getElementById('signSalary');
+  if(signDebit) signDebit.style.display = isDebit ? '' : 'none';
+  if(signSalary) signSalary.style.display = isDebit ? 'none' : '';
+}
+
 window.exportPDF = function(){
-  const activeTab = document.getElementById('tabDebit').classList.contains('active') ? 'debit' : 'salary';
-  const title = activeTab === 'debit' ? 'BangCongNo' : 'BangLuong';
+  const isDebit = document.getElementById('tabDebit').classList.contains('active');
+  const title = isDebit ? 'BangCongNo' : 'BangLuong';
   const date = new Date().toLocaleDateString('vi-VN').replace(/\//g,'-');
-  // Dùng print với filename
   const origTitle = document.title;
   document.title = `${title}_${date}`;
+  markPrintActive();
   window.print();
   setTimeout(() => document.title = origTitle, 1000);
 };
