@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>📊 Overview</title>
+<title>📊 Báo cáo tổng quan</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <style>
@@ -106,12 +106,98 @@ tfoot td{background:#f0f4ff;font-weight:700;border-top:2px solid var(--accent);f
 .vat-status.saving{background:#fef9c3;color:#854d0e;border:1px solid #fde047;}
 .vat-status.err{background:#fee2e2;color:#991b1b;border:1px solid #fca5a5;}
 
+/* SIGNATURE SECTION */
+.sign-section{display:none;}
+
 /* PRINT */
 @media print{
-  .nav,.tabs-wrap,.filter-wrap,.btn,.btn-print,.no-print{display:none!important;}
-  .tbl-wrap{margin:0;border:none;box-shadow:none;}
-  .company-header{margin:0 0 12px;border:1px solid #ccc;}
-  body{background:#fff;}
+  @page{size:A4 landscape;margin:10mm 8mm 12mm 8mm;}
+  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;}
+  html,body{background:#fff!important;font-size:9.5px!important;}
+  .nav,.tabs-wrap,.filter-wrap,.btn,.btn-print,.no-print,
+  .toolbar,.vat-bar,.sum-row{display:none!important;}
+  #panel-debit.print-active,#panel-salary.print-active{display:block!important;}
+  #panel-debit:not(.print-active),#panel-salary:not(.print-active){display:none!important;}
+
+  /* Company header print */
+  .company-header{
+    margin:0 0 6px!important;
+    border:1.5px solid #0d2248!important;
+    border-radius:4px!important;
+    padding:10px 14px!important;
+    box-shadow:none!important;
+    page-break-after:avoid;
+  }
+  .company-name{font-size:13px!important;}
+  .debit-title{font-size:15px!important;}
+
+  /* Table wrapper — remove scrollbar */
+  .tbl-wrap{
+    margin:0 0 6px!important;
+    border:1px solid #999!important;
+    border-radius:0!important;
+    box-shadow:none!important;
+    overflow:visible!important;
+  }
+  table{font-size:8.5px!important;width:100%!important;}
+  thead th{
+    background:#0d2248!important;
+    color:#fff!important;
+    padding:5px 5px!important;
+    font-size:8px!important;
+  }
+  thead th.sub{background:#1e3a5f!important;}
+  td{padding:4px 5px!important;}
+  tfoot td{
+    background:#e8eeff!important;
+    font-size:9px!important;
+    border-top:2px solid #1d6ef5!important;
+  }
+  tr:nth-child(even) td{background:#f7f9ff!important;}
+  tr:hover td{background:inherit!important;}
+
+  /* Salary summary section */
+  .toolbar[style*="margin:0 18px"]{
+    margin:8px 0 4px!important;
+    border-radius:3px!important;
+    padding:6px 10px!important;
+    background:#f0f4ff!important;
+    border:1px solid #c7d4f0!important;
+    box-shadow:none!important;
+  }
+
+  /* Summary cards — hiện khi in */
+  .sum-row{display:flex!important;gap:6px!important;padding:0 0 6px!important;flex-wrap:nowrap!important;}
+  .sum-card{padding:6px 10px!important;border:1px solid #c7d4f0!important;box-shadow:none!important;background:#f7f9ff!important;}
+  .sum-card .lbl{font-size:8px!important;}
+  .sum-card .val{font-size:14px!important;}
+
+  /* Print date */
+  .print-date{display:block!important;font-size:8.5px;color:#64748b;text-align:right;margin-bottom:4px;}
+
+  /* Salary summary toolbar */
+  .salary-sum-header{
+    background:#e8eeff!important;
+    border:1px solid #c7d4f0!important;
+    border-radius:3px!important;
+    padding:5px 8px!important;
+    font-size:10px!important;
+    font-weight:700!important;
+    color:#0d2248!important;
+    margin:8px 0 3px!important;
+  }
+  .sign-section{
+    display:flex!important;
+    justify-content:space-between;
+    align-items:flex-end;
+    margin-top:14px;
+    padding:0 10px;
+    page-break-inside:avoid;
+  }
+  .sign-block{text-align:center;min-width:160px;}
+  .sign-block .sign-title{font-size:10px;font-weight:700;text-transform:uppercase;color:#0d2248;margin-bottom:45px;}
+  .sign-block .sign-name{font-size:10px;font-weight:600;border-top:1px solid #333;padding-top:4px;color:#0f172a;}
+  .sign-block .sign-sub{font-size:8.5px;color:#64748b;}
 }
 </style>
 </head>
@@ -141,7 +227,10 @@ tfoot td{background:#f0f4ff;font-weight:700;border-top:2px solid var(--accent);f
 
 <div class="toolbar">
   <div class="toolbar-title">📊 TỔNG QUAN BÁO CÁO</div>
-  <button class="btn btn-print no-print" onclick="window.print()">🖨️ In / PDF</button>
+  <div style="display:flex;gap:8px;">
+    <button class="btn btn-print no-print" onclick="markPrintActive();window.print()">🖨️ In</button>
+    <button class="btn btn-accent no-print" onclick="exportPDF()">⬇️ Tải PDF</button>
+  </div>
 </div>
 
 <!-- VAT SETTINGS — dùng chung với Accountant, lưu Firebase RT DB -->
@@ -183,13 +272,14 @@ tfoot td{background:#f0f4ff;font-weight:700;border-top:2px solid var(--accent);f
   </div>
 
   <!-- COMPANY HEADER -->
+  <div class="print-date" id="printDateLabel" style="display:none"></div>
  <div class="company-header">
   <div class="co-left">
-    <div class="company-name">
+    <div class="company-name" id="coName">
       CÔNG TY VẬN TẢI ABC
     </div>
 
-    <div class="company-addr">
+    <div class="company-addr" id="coAddr">
       Địa chỉ: 1234 CAO THẮNG, PHƯỜNG 3, TP.HCM
     </div>
 
@@ -209,6 +299,25 @@ tfoot td{background:#f0f4ff;font-weight:700;border-top:2px solid var(--accent);f
     </div>
   </div>
 </div>
+
+  <!-- SIGNATURE DEBIT (chỉ hiện khi in) -->
+  <div class="sign-section" id="signDebit">
+    <div class="sign-block">
+      <div class="sign-title">Người lập bảng</div>
+      <div class="sign-name">&nbsp;</div>
+      <div class="sign-sub">(Ký, họ tên)</div>
+    </div>
+    <div class="sign-block">
+      <div class="sign-title">Kế toán trưởng</div>
+      <div class="sign-name">&nbsp;</div>
+      <div class="sign-sub">(Ký, họ tên)</div>
+    </div>
+    <div class="sign-block">
+      <div class="sign-title">Giám đốc</div>
+      <div class="sign-name">&nbsp;</div>
+      <div class="sign-sub">(Ký, họ tên, đóng dấu)</div>
+    </div>
+  </div>
 
   <!-- SUMMARY -->
   <div class="sum-row">
@@ -273,6 +382,19 @@ tfoot td{background:#f0f4ff;font-weight:700;border-top:2px solid var(--accent);f
     <div class="pill">Tổng: <strong id="sCount">0</strong> chuyến</div>
   </div>
 
+  <!-- COMPANY HEADER SALARY (print) -->
+  <div class="company-header">
+    <div class="co-left">
+      <div class="company-name" id="coNameSal">CÔNG TY VẬN TẢI ABC</div>
+      <div class="company-addr" id="coAddrSal">Địa chỉ: 1234 CAO THẮNG, PHƯỜNG 3, TP.HCM</div>
+      <div class="company-addr">Mã số thuế: 01031616116</div>
+    </div>
+    <div class="co-right">
+      <div class="debit-title">BẢNG LƯƠNG LÁI XE</div>
+      <div class="debit-period" id="sPeriodLabel">Kỳ: Tất cả</div>
+    </div>
+  </div>
+
   <!-- SUMMARY -->
   <div class="sum-row">
     <div class="sum-card"><div class="lbl">Tổng lương</div><div class="val" id="sSumWage" style="color:var(--green)">0</div></div>
@@ -330,6 +452,25 @@ tfoot td{background:#f0f4ff;font-weight:700;border-top:2px solid var(--accent);f
 
 </div><!-- /panel-salary -->
 
+<!-- SIGNATURE SALARY (chỉ hiện khi in, nằm ngoài panel để luôn in được) -->
+<div class="sign-section" id="signSalary">
+  <div class="sign-block">
+    <div class="sign-title">Người lập bảng</div>
+    <div class="sign-name">&nbsp;</div>
+    <div class="sign-sub">(Ký, họ tên)</div>
+  </div>
+  <div class="sign-block">
+    <div class="sign-title">Kế toán trưởng</div>
+    <div class="sign-name">&nbsp;</div>
+    <div class="sign-sub">(Ký, họ tên)</div>
+  </div>
+  <div class="sign-block">
+    <div class="sign-title">Giám đốc</div>
+    <div class="sign-name">&nbsp;</div>
+    <div class="sign-sub">(Ký, họ tên, đóng dấu)</div>
+  </div>
+</div>
+
 <!-- TOAST -->
 <div id="toast" style="position:fixed;bottom:24px;right:24px;background:#22c55e;color:#fff;padding:10px 18px;border-radius:8px;font-size:13px;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,.15);opacity:0;transition:opacity .3s;pointer-events:none;z-index:999;"></div>
 
@@ -340,7 +481,7 @@ const ALL_NAV=[
   {page:"index.html",       label:"🚚 Trucking"},
   {page:"accountant.html",  label:"📒 Accountant"},
   {page:"performance.html", label:"📈 Performance"},
-  {page:"overview.html",    label:"📊 Overview"},
+  {page:"overview.html",    label:"📊 Báo cáo"},
   {page:"master.html",      label:"📂 Master",      adminOnly:true},
   {page:"maintenance.html", label:"🔧 Bảo dưỡng",  adminOnly:true},
   {page:"users.html",       label:"👑 Users",        adminOnly:true},
@@ -349,8 +490,9 @@ const ALL_NAV=[
   const session=JSON.parse(localStorage.getItem(CURRENT_KEY)||"{}");
   const nav=document.getElementById("mainNav"),nr=nav.querySelector(".nav-right");
   ALL_NAV.forEach(item=>{
-    if(item.adminOnly&&session.role!=="admin") return;
-    if(!item.adminOnly&&session.role!=="admin"&&!(session.pages||[]).includes(item.page)) return;
+    if(session.role==="admin"){/* hiện tất cả */}
+    else if(session.role==="viceadmin"){ /* hiện tất cả kể cả users.html */ }
+    else{if(!(session.pages||[]).includes(item.page)) return;}
     const a=document.createElement("a");a.href=item.page;a.textContent=item.label;
     if(location.pathname.endsWith(item.page)) a.classList.add("active");
     nav.insertBefore(a,nr);
@@ -370,7 +512,27 @@ function showToast(msg){
 function fmt(n){return Number(n||0).toLocaleString("vi-VN");}
 function fmtDate(s){if(!s)return"";const[y,m,d]=(s||"").split("-");return d?`${d}/${m}/${y}`:s;}
 
-/* ── TAB SWITCH ── */
+/* ── PRINT: chỉ in tab đang active ── */
+window.addEventListener('beforeprint', function(){
+  const now = new Date();
+  const dateStr = `Ngày in: ${now.getDate().toString().padStart(2,'0')}/${(now.getMonth()+1).toString().padStart(2,'0')}/${now.getFullYear()}`;
+  const dl = document.getElementById('printDateLabel');
+  if(dl) dl.textContent = dateStr;
+  const debitActive = document.getElementById('panel-debit').style.display !== 'none';
+  document.getElementById('panel-debit').style.display  = debitActive  ? 'block' : 'none';
+  document.getElementById('panel-salary').style.display = !debitActive ? 'block' : 'none';
+  // Signature sections
+  const sd = document.getElementById('signDebit');
+  const ss = document.getElementById('signSalary');
+  if(sd) sd.style.display = debitActive  ? 'flex' : 'none';
+  if(ss) ss.style.display = !debitActive ? 'flex' : 'none';
+});
+window.addEventListener('afterprint', function(){
+  // Restore tab state
+  const debitActive = document.getElementById('tabDebit').classList.contains('active');
+  document.getElementById('panel-debit').style.display  = debitActive  ? 'block' : 'none';
+  document.getElementById('panel-salary').style.display = !debitActive ? 'block' : 'none';
+});
 window.switchTab=function(id,el){
   document.getElementById("panel-debit").style.display=id==="debit"?"block":"none";
   document.getElementById("panel-salary").style.display=id==="salary"?"block":"none";
@@ -416,8 +578,14 @@ rtdb.ref(`master_data_${APP_ID}`).on("value", snap => {
   try {
     const master = snap.exists() ? snap.val() : {};
     const co = master.company || {};
-    if (co.name)    document.getElementById("coName").textContent = co.name;
-    if (co.address) document.getElementById("coAddr").textContent = "Địa chỉ: " + co.address;
+    if (co.name) {
+      document.getElementById("coName").textContent = co.name;
+      const sal=document.getElementById("coNameSal");if(sal)sal.textContent=co.name;
+    }
+    if (co.address) {
+      document.getElementById("coAddr").textContent = "Địa chỉ: " + co.address;
+      const sal=document.getElementById("coAddrSal");if(sal)sal.textContent="Địa chỉ: "+co.address;
+    }
     localStorage.setItem(`MASTER_ALL_V4_${APP_ID}`, JSON.stringify(master));
   } catch(e) {}
 });
@@ -593,6 +761,15 @@ window.renderSalary=function(){
   const to=document.getElementById("sTo").value;
   const drv=document.getElementById("sDriver").value;
 
+  // Period label for salary print header
+  let period="Tất cả";
+  if(from&&to) period=`${fmtDate(from)} – ${fmtDate(to)}`;
+  else if(from) period=`Từ ${fmtDate(from)}`;
+  else if(to)   period=`Đến ${fmtDate(to)}`;
+  if(drv) period+=" | Lái xe: "+drv;
+  const spLabel=document.getElementById("sPeriodLabel");
+  if(spLabel) spLabel.textContent="Kỳ: "+period;
+
   let rows=[...trkStore];
   if(kw) rows=rows.filter(r=>
     (r.driver||"").toLowerCase().includes(kw)||
@@ -710,7 +887,33 @@ window.exportDebit=function(){
   showToast("✅ Xuất Excel công nợ thành công");
 };
 
-window.exportSalary=function(){
+
+/* ══════════════════════════════════════
+   EXPORT PDF
+══════════════════════════════════════ */
+function markPrintActive(){
+  const isDebit = document.getElementById('tabDebit').classList.contains('active');
+  document.getElementById('panel-debit').classList.toggle('print-active', isDebit);
+  document.getElementById('panel-salary').classList.toggle('print-active', !isDebit);
+  // Ký tên: chỉ hiện đúng bảng
+  const signDebit = document.getElementById('signDebit');
+  const signSalary = document.getElementById('signSalary');
+  if(signDebit) signDebit.style.display = isDebit ? '' : 'none';
+  if(signSalary) signSalary.style.display = isDebit ? 'none' : '';
+}
+
+window.exportPDF = function(){
+  const isDebit = document.getElementById('tabDebit').classList.contains('active');
+  const title = isDebit ? 'BangCongNo' : 'BangLuong';
+  const date = new Date().toLocaleDateString('vi-VN').replace(/\//g,'-');
+  const origTitle = document.title;
+  document.title = `${title}_${date}`;
+  markPrintActive();
+  window.print();
+  setTimeout(() => document.title = origTitle, 1000);
+};
+
+
   const kw=(document.getElementById("sSearch").value||"").toLowerCase().trim();
   const from=document.getElementById("sFrom").value;
   const to=document.getElementById("sTo").value;
