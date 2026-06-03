@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>📊 Overview</title>
+<title>📊 Báo cáo tổng quan</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <style>
@@ -226,7 +226,10 @@ tfoot td{background:#f0f4ff;font-weight:700;border-top:2px solid var(--accent);f
 
 <div class="toolbar">
   <div class="toolbar-title">📊 TỔNG QUAN BÁO CÁO</div>
-  <button class="btn btn-print no-print" onclick="window.print()">🖨️ In / PDF</button>
+  <div style="display:flex;gap:8px;">
+    <button class="btn btn-print no-print" onclick="window.print()">🖨️ In</button>
+    <button class="btn btn-accent no-print" onclick="exportPDF()">⬇️ Tải PDF</button>
+  </div>
 </div>
 
 <!-- VAT SETTINGS — dùng chung với Accountant, lưu Firebase RT DB -->
@@ -477,7 +480,7 @@ const ALL_NAV=[
   {page:"index.html",       label:"🚚 Trucking"},
   {page:"accountant.html",  label:"📒 Accountant"},
   {page:"performance.html", label:"📈 Performance"},
-  {page:"overview.html",    label:"📊 Overview"},
+  {page:"overview.html",    label:"📊 Báo cáo"},
   {page:"master.html",      label:"📂 Master",      adminOnly:true},
   {page:"maintenance.html", label:"🔧 Bảo dưỡng",  adminOnly:true},
   {page:"users.html",       label:"👑 Users",        adminOnly:true},
@@ -883,7 +886,22 @@ window.exportDebit=function(){
   showToast("✅ Xuất Excel công nợ thành công");
 };
 
-window.exportSalary=function(){
+
+/* ══════════════════════════════════════
+   EXPORT PDF
+══════════════════════════════════════ */
+window.exportPDF = function(){
+  const activeTab = document.getElementById('tabDebit').classList.contains('active') ? 'debit' : 'salary';
+  const title = activeTab === 'debit' ? 'BangCongNo' : 'BangLuong';
+  const date = new Date().toLocaleDateString('vi-VN').replace(/\//g,'-');
+  // Dùng print với filename
+  const origTitle = document.title;
+  document.title = `${title}_${date}`;
+  window.print();
+  setTimeout(() => document.title = origTitle, 1000);
+};
+
+
   const kw=(document.getElementById("sSearch").value||"").toLowerCase().trim();
   const from=document.getElementById("sFrom").value;
   const to=document.getElementById("sTo").value;
