@@ -3,15 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>📊 Báo cáo tổng quan</title>
+<title>📈 Performance</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <style>
 :root{--navy:#0d2248;--accent:#1d6ef5;--green:#0d9f6e;--red:#e03131;--amber:#e67700;--border:#e2e8f5;--muted:#64748b;--bg:#eef1f8;--white:#ffffff;--text:#0f172a;--alt:#f7f9ff;--shadow:0 1px 3px rgba(13,34,72,.08);--r:6px;}
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Be Vietnam Pro','Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--text);font-size:13px;min-height:100vh;}
-
-/* NAV */
 .nav{background:var(--navy);display:flex;align-items:center;padding:0 18px;height:46px;gap:2px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(13,34,72,.3);}
 .nav a{color:rgba(255,255,255,.6);text-decoration:none;font-size:12.5px;font-weight:500;padding:5px 12px;border-radius:5px;transition:.15s;white-space:nowrap;}
 .nav a:hover{background:rgba(255,255,255,.1);color:#fff;}
@@ -19,201 +17,57 @@ body{font-family:'Be Vietnam Pro','Segoe UI',Arial,sans-serif;background:var(--b
 .nav-right{margin-left:auto;display:flex;align-items:center;gap:10px;}
 .nav-user{color:rgba(255,255,255,.75);font-size:12px;font-weight:500;}
 .btn-logout{background:rgba(255,255,255,.1);color:rgba(255,255,255,.8);border:1px solid rgba(255,255,255,.15);border-radius:5px;padding:4px 11px;font-size:12px;font-family:inherit;cursor:pointer;}
-
-/* TOOLBAR */
 .toolbar{background:var(--white);border-bottom:1px solid var(--border);padding:8px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
 .toolbar-title{font-size:13px;font-weight:700;color:var(--navy);display:flex;align-items:center;gap:8px;}
 .toolbar-title::before{content:'';width:3px;height:15px;background:var(--accent);border-radius:2px;display:inline-block;}
-
-/* TABS */
-.tabs-wrap{background:var(--white);border-bottom:1px solid var(--border);padding:0 18px;display:flex;gap:2px;}
-.tab-btn{padding:10px 18px;font-size:13px;font-weight:600;font-family:inherit;border:none;background:none;cursor:pointer;color:var(--muted);border-bottom:2px solid transparent;transition:.15s;}
-.tab-btn:hover{color:var(--navy);}
-.tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);}
-
 /* FILTER */
-.filter-wrap{background:var(--white);border-bottom:1px solid var(--border);padding:9px 18px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
-.filter-wrap input[type="text"]{height:30px;font-size:12px;font-family:inherit;border:1px solid var(--border);border-radius:5px;padding:0 9px;width:210px;}
-.filter-wrap input[type="date"],
-.filter-wrap select{height:30px;font-size:12px;font-family:inherit;border:1px solid var(--border);border-radius:5px;padding:0 8px;background:var(--white);}
-.filter-wrap input:focus,.filter-wrap select:focus{outline:none;border-color:var(--accent);}
-.sep{color:var(--muted);font-size:11px;}
-.pill{background:var(--alt);color:var(--navy);border:1px solid #c7d4f0;border-radius:20px;padding:3px 14px;font-size:12px;font-weight:600;margin-left:auto;}
-.pill strong{color:var(--accent);}
-
-/* BUTTONS */
+.filter-bar{background:var(--white);border-bottom:1px solid var(--border);padding:8px 18px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.filter-bar label{font-size:12px;font-weight:600;color:var(--muted);}
+.filter-bar select,.filter-bar input{height:30px;font-size:12px;font-family:inherit;border:1px solid var(--border);border-radius:5px;padding:0 8px;background:var(--white);}
+.filter-bar select:focus,.filter-bar input:focus{outline:none;border-color:var(--accent);}
 .btn{display:inline-flex;align-items:center;gap:4px;padding:5px 12px;border:none;border-radius:5px;font-size:12px;font-family:inherit;font-weight:600;cursor:pointer;transition:.15s;}
-.btn:hover{filter:brightness(1.08);}
 .btn-accent{background:var(--accent);color:#fff;}
 .btn-gray{background:#f1f5f9;color:#475569;border:1px solid var(--border);}
-.btn-print{background:#f8fafc;color:#334155;border:1px solid var(--border);}
-.btn-excel{background:#16a34a;color:#fff;}
-.btn-sm{padding:3px 9px;font-size:11.5px;}
-
-/* COMPANY HEADER (Debit) */
-.company-header{margin:14px 18px 0;background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:14px 20px;display:flex;align-items:flex-start;justify-content:space-between;gap:20px;box-shadow:var(--shadow);}
-.company-header .co-left{}
-.company-name{font-size:16px;font-weight:700;color:var(--navy);letter-spacing:.01em;}
-.company-addr{font-size:11.5px;color:var(--muted);margin-top:3px;}
-.company-header .co-right{text-align:right;}
-.debit-title{font-size:17px;font-weight:700;color:var(--accent);letter-spacing:.02em;}
-.debit-period{font-size:11.5px;color:var(--muted);margin-top:3px;}
-
 /* SUMMARY CARDS */
-.sum-row{display:flex;gap:10px;padding:12px 18px 0;flex-wrap:wrap;}
-.sum-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:10px 16px;flex:1;min-width:150px;box-shadow:var(--shadow);}
+.sum-row{display:flex;gap:12px;padding:16px 18px 0;flex-wrap:wrap;}
+.sum-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:12px 18px;flex:1;min-width:160px;box-shadow:var(--shadow);}
 .sum-card .lbl{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;}
-.sum-card .val{font-size:19px;font-weight:700;margin-top:2px;}
-
+.sum-card .val{font-size:22px;font-weight:700;margin-top:3px;}
+/* TABS */
+.tabs-wrap{background:var(--white);border-bottom:1px solid var(--border);padding:0 18px;display:flex;gap:2px;margin-top:12px;}
+.tab-btn{padding:9px 16px;font-size:12.5px;font-weight:600;font-family:inherit;border:none;background:none;cursor:pointer;color:var(--muted);border-bottom:2px solid transparent;transition:.15s;}
+.tab-btn:hover{color:var(--navy);}
+.tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);}
 /* TABLE */
-.tbl-wrap{margin:10px 18px 20px;background:var(--white);border-radius:var(--r);border:1px solid var(--border);overflow:auto;box-shadow:var(--shadow);}
-table{border-collapse:collapse;width:100%;font-size:11.5px;}
-thead th{background:var(--navy);color:rgba(255,255,255,.9);padding:7px 7px;font-weight:600;font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap;position:sticky;top:0;z-index:5;}
-thead th.sub{background:#1e3a5f;}
-td{border-bottom:1px solid var(--border);padding:5px 7px;text-align:center;vertical-align:middle;}
+.tbl-wrap{margin:12px 18px 24px;background:var(--white);border-radius:var(--r);border:1px solid var(--border);overflow:auto;box-shadow:var(--shadow);}
+table{border-collapse:collapse;width:100%;font-size:12.5px;}
+thead th{background:var(--navy);color:rgba(255,255,255,.88);padding:8px 10px;font-weight:600;font-size:11px;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap;position:sticky;top:0;z-index:5;}
+td{border-bottom:1px solid var(--border);padding:7px 10px;text-align:center;}
 td.tl{text-align:left;}
-td.tr{text-align:right;}
 td.num{text-align:right;font-weight:600;}
 tr:last-child td{border-bottom:none;}
 tr:nth-child(even) td{background:var(--alt);}
 tr:hover td{background:#e8eeff!important;}
-tfoot td{background:#f0f4ff;font-weight:700;border-top:2px solid var(--accent);font-size:12px;}
-
-/* TAX SECTION (Debit) */
-.tax-box{margin:0 18px 20px;background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:14px 20px;box-shadow:var(--shadow);max-width:500px;margin-left:auto;margin-right:18px;}
-.tax-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;font-size:13px;border-bottom:1px solid var(--border);}
-.tax-row:last-child{border-bottom:none;font-size:15px;font-weight:700;}
-.tax-row.total-after{color:var(--accent);font-size:16px;}
-
-/* SALARY GROUP */
-.driver-group-title{background:#f8faff;border-bottom:1px solid var(--border);font-weight:700;color:var(--navy);}
-
-/* LOADING */
+.bar-wrap{background:#e2e8f5;border-radius:20px;height:8px;width:120px;display:inline-block;vertical-align:middle;}
+.bar-fill{height:100%;border-radius:20px;background:var(--accent);}
+.bar-fill.green{background:var(--green);}
+.bar-fill.red{background:var(--red);}
+.badge-pos{background:#dcfce7;color:#166534;border-radius:20px;padding:2px 10px;font-size:11px;font-weight:600;}
+.badge-neg{background:#fee2e2;color:#991b1b;border-radius:20px;padding:2px 10px;font-size:11px;font-weight:600;}
 .loading{text-align:center;padding:40px;color:var(--muted);font-size:13px;}
-
-/* VAT BAR */
-.vat-bar{background:var(--white);border-bottom:2px solid var(--border);padding:7px 18px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
-.vat-bar-label{font-size:12px;font-weight:700;color:var(--navy);}
-.vat-input-wrap{display:flex;align-items:center;gap:6px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:6px;padding:4px 10px;}
-.vat-input-wrap label{font-size:11.5px;font-weight:700;color:#1d4ed8;white-space:nowrap;}
-.vat-pct-input{width:56px;height:26px;font-size:13px;font-weight:700;font-family:inherit;border:1px solid #93c5fd;border-radius:4px;padding:0 6px;background:#fff;color:#1d4ed8;text-align:center;}
-.vat-pct-input:focus{outline:none;border-color:#1d6ef5;}
-.vat-sym{color:#1d4ed8;font-weight:700;font-size:13px;}
-.btn-vat-save{background:#1d6ef5;color:#fff;border:none;border-radius:5px;padding:4px 12px;font-size:12px;font-weight:700;font-family:inherit;cursor:pointer;}
-.btn-vat-save:hover{background:#1558c9;}
-.vat-status{font-size:11px;font-weight:600;padding:2px 10px;border-radius:20px;}
-.vat-status.ok{background:#dcfce7;color:#166534;border:1px solid #86efac;}
-.vat-status.saving{background:#fef9c3;color:#854d0e;border:1px solid #fde047;}
-.vat-status.err{background:#fee2e2;color:#991b1b;border:1px solid #fca5a5;}
-
-/* SIGNATURE SECTION */
-.sign-section{display:none;}
-
-/* PRINT */
-@media print{
-  @page{size:A4 landscape;margin:10mm 8mm 12mm 8mm;}
-  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;}
-  html,body{background:#fff!important;font-size:9.5px!important;}
-  .nav,.tabs-wrap,.filter-wrap,.btn,.btn-print,.no-print,
-  .toolbar,.vat-bar,.sum-row{display:none!important;}
-  #panel-debit.print-active,#panel-salary.print-active{display:block!important;}
-  #panel-debit:not(.print-active),#panel-salary:not(.print-active){display:none!important;}
-
-  /* Company header print */
-  .company-header{
-    margin:0 0 6px!important;
-    border:1.5px solid #0d2248!important;
-    border-radius:4px!important;
-    padding:10px 14px!important;
-    box-shadow:none!important;
-    page-break-after:avoid;
-  }
-  .company-name{font-size:13px!important;}
-  .debit-title{font-size:15px!important;}
-
-  /* Table wrapper — remove scrollbar */
-  .tbl-wrap{
-    margin:0 0 6px!important;
-    border:1px solid #999!important;
-    border-radius:0!important;
-    box-shadow:none!important;
-    overflow:visible!important;
-  }
-  table{font-size:8.5px!important;width:100%!important;}
-  thead th{
-    background:#0d2248!important;
-    color:#fff!important;
-    padding:5px 5px!important;
-    font-size:8px!important;
-  }
-  thead th.sub{background:#1e3a5f!important;}
-  td{padding:4px 5px!important;}
-  tfoot td{
-    background:#e8eeff!important;
-    font-size:9px!important;
-    border-top:2px solid #1d6ef5!important;
-  }
-  tr:nth-child(even) td{background:#f7f9ff!important;}
-  tr:hover td{background:inherit!important;}
-
-  /* Salary summary section */
-  .toolbar[style*="margin:0 18px"]{
-    margin:8px 0 4px!important;
-    border-radius:3px!important;
-    padding:6px 10px!important;
-    background:#f0f4ff!important;
-    border:1px solid #c7d4f0!important;
-    box-shadow:none!important;
-  }
-
-  /* Summary cards — hiện khi in */
-  .sum-row{display:flex!important;gap:6px!important;padding:0 0 6px!important;flex-wrap:nowrap!important;}
-  .sum-card{padding:6px 10px!important;border:1px solid #c7d4f0!important;box-shadow:none!important;background:#f7f9ff!important;}
-  .sum-card .lbl{font-size:8px!important;}
-  .sum-card .val{font-size:14px!important;}
-
-  /* Print date */
-  .print-date{display:block!important;font-size:8.5px;color:#64748b;text-align:right;margin-bottom:4px;}
-
-  /* Salary summary toolbar */
-  .salary-sum-header{
-    background:#e8eeff!important;
-    border:1px solid #c7d4f0!important;
-    border-radius:3px!important;
-    padding:5px 8px!important;
-    font-size:10px!important;
-    font-weight:700!important;
-    color:#0d2248!important;
-    margin:8px 0 3px!important;
-  }
-  .sign-section{
-    display:flex!important;
-    justify-content:space-between;
-    align-items:flex-end;
-    margin-top:14px;
-    padding:0 10px;
-    page-break-inside:avoid;
-  }
-  .sign-block{text-align:center;min-width:160px;}
-  .sign-block .sign-title{font-size:10px;font-weight:700;text-transform:uppercase;color:#0d2248;margin-bottom:45px;}
-  .sign-block .sign-name{font-size:10px;font-weight:600;border-top:1px solid #333;padding-top:4px;color:#0f172a;}
-  .sign-block .sign-sub{font-size:8.5px;color:#64748b;}
-}
 </style>
 </head>
 <body>
-
 <script>
 (function(){
   const raw=localStorage.getItem("LOGIN_USER");
-  if(!raw){navigate("login.html");return;}
+  if(!raw){location.href="login.html";return;}
   const s=JSON.parse(raw);
-  if(s.role!=="admin"&&!(s.pages||[]).includes("overview.html"))
-    navigate((s.pages&&s.pages[0])||"login.html");
+  if(s.role!=="admin"&&!(s.pages||[]).includes("performance.html"))
+    location.href=(s.pages&&s.pages[0])||"login.html";
 })();
 </script>
 
-<script src="app-config.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
@@ -226,262 +80,197 @@ tfoot td{background:#f0f4ff;font-weight:700;border-top:2px solid var(--accent);f
 </nav>
 
 <div class="toolbar">
-  <div class="toolbar-title">📊 TỔNG QUAN BÁO CÁO</div>
-  <div style="display:flex;gap:8px;">
-    <button class="btn btn-print no-print" onclick="markPrintActive();window.print()">🖨️ In</button>
-    <button class="btn btn-accent no-print" onclick="exportPDF()">⬇️ Tải PDF</button>
-  </div>
+  <div class="toolbar-title">📈 HIỆU SUẤT VẬN HÀNH</div>
 </div>
 
-<!-- VAT SETTINGS — dùng chung với Accountant, lưu Firebase RT DB -->
-<div class="vat-bar no-print">
-  <span class="vat-bar-label">:</span>
-  <div class="vat-input-wrap">
-    <label for="vatPctInput">Thuế suất</label>
-    <input type="number" id="vatPctInput" class="vat-pct-input" value="10" min="0" max="100" step="0.5">
-    <span class="vat-sym">%</span>
-  </div>
-  <button class="btn-vat-save" onclick="saveVAT()">💾 Lưu</button>
-  <span id="vatStatus" class="vat-status" style="display:none"></span>
-  <span style="color:var(--muted);font-size:11px">→ đồng bộ với Accountant · bảng công nợ cập nhật tức thời</span>
+<!-- FILTER -->
+<div class="filter-bar">
+  <label>Tháng:</label>
+  <select id="selMonth">
+    <option value="">-- Tất cả --</option>
+    <option value="01">Tháng 1</option><option value="02">Tháng 2</option>
+    <option value="03">Tháng 3</option><option value="04">Tháng 4</option>
+    <option value="05">Tháng 5</option><option value="06">Tháng 6</option>
+    <option value="07">Tháng 7</option><option value="08">Tháng 8</option>
+    <option value="09">Tháng 9</option><option value="10">Tháng 10</option>
+    <option value="11">Tháng 11</option><option value="12">Tháng 12</option>
+  </select>
+  <label>Năm:</label>
+  <select id="selYear"></select>
+  <label>Từ ngày:</label>
+  <input type="date" id="fromDate">
+  <label>Đến ngày:</label>
+  <input type="date" id="toDate">
+  <button class="btn btn-accent" onclick="applyFilter()">Lọc</button>
+  <button class="btn btn-gray" onclick="clearFilter()">Reset</button>
+  <span id="filterInfo" style="font-size:11px;color:var(--muted);margin-left:8px"></span>
+</div>
+
+<!-- SUMMARY CARDS -->
+<div class="sum-row">
+  <div class="sum-card"><div class="lbl">Tổng doanh thu</div><div class="val" id="totalRev" style="color:var(--accent)">—</div></div>
+  <div class="sum-card"><div class="lbl">Tổng chi phí</div><div class="val" id="totalCost" style="color:var(--red)">—</div></div>
+  <div class="sum-card"><div class="lbl">Lợi nhuận</div><div class="val" id="totalProfit" style="color:var(--green)">—</div></div>
+  <div class="sum-card"><div class="lbl">Tổng chuyến</div><div class="val" id="totalTrips" style="color:var(--navy)">—</div></div>
+  <div class="sum-card"><div class="lbl">Tổng KM</div><div class="val" id="totalKm" style="color:var(--amber)">—</div></div>
 </div>
 
 <!-- TABS -->
 <div class="tabs-wrap">
-  <button class="tab-btn active" id="tabDebit" onclick="switchTab('debit',this)">📄 Bảng công nợ khách hàng</button>
-  <button class="tab-btn" id="tabSalary" onclick="switchTab('salary',this)">💰 Bảng lương lái xe</button>
+  <button class="tab-btn active" onclick="openTab('xe',this)">⛽ Quản lý KM & Nhiên liệu</button>
+  <button class="tab-btn" onclick="openTab('khach',this)">📦 Hiệu suất khách hàng</button>
+  <button class="tab-btn" onclick="openTab('thang',this)">📅 Theo tháng</button>
+  <button class="tab-btn" onclick="openTab('suachua',this)">🔧 Chi phí & Hiệu suất</button>
 </div>
 
-<!-- ══════════════════════════════════════════
-     TAB 1: DEBIT KHÁCH HÀNG
-══════════════════════════════════════════ -->
-<div id="panel-debit">
-
-  <!-- FILTER -->
-  <div class="filter-wrap">
-    <input type="text" id="dSearch" placeholder="🔍 Tìm khách hàng, mã KH, container...">
-    <span class="sep">Từ</span>
-    <input type="date" id="dFrom">
-    <span class="sep">đến</span>
-    <input type="date" id="dTo">
-    <select id="dCus" style="width:180px"><option value="">-- Tất cả khách hàng --</option></select>
-    <button class="btn btn-accent btn-sm" onclick="renderDebit()">Lọc</button>
-    <button class="btn btn-gray btn-sm" onclick="clearDebit()">Reset</button>
-    <button class="btn btn-excel btn-sm" onclick="exportDebit()">↓ Excel</button>
-    <div class="pill">Tổng: <strong id="dCount">0</strong> chuyến</div>
+<!-- TAB XE -->
+<div id="tab-xe">
+  <!-- KPI cards cho tab KM & Nhiên liệu -->
+  <div class="sum-row" style="padding-bottom:4px">
+    <div class="sum-card"><div class="lbl">🔢 KM theo đồng hồ</div><div class="val" id="km-totalKmDH" style="color:#0369a1;font-size:18px">—</div></div>
+    <div class="sum-card"><div class="lbl">Lít theo định mức</div><div class="val" id="km-litDM" style="color:var(--accent);font-size:18px">—</div></div>
+    <div class="sum-card"><div class="lbl">Lít đổ thực tế</div><div class="val" id="km-litTT" style="color:#e67700;font-size:18px">—</div></div>
+    <div class="sum-card"><div class="lbl">Chênh lệch</div><div class="val" id="km-litCL" style="color:var(--red);font-size:18px">—</div></div>
+    <div class="sum-card"><div class="lbl">KM chạy rỗng (ước tính)</div><div class="val" id="km-kmRong" style="color:var(--muted);font-size:18px">—</div></div>
   </div>
-
-  <!-- COMPANY HEADER -->
-  <div class="print-date" id="printDateLabel" style="display:none"></div>
- <div class="company-header">
-  <div class="co-left">
-    <div class="company-name" id="coName">
-      CÔNG TY VẬN TẢI ABC
-    </div>
-
-    <div class="company-addr" id="coAddr">
-      Địa chỉ: 1234 CAO THẮNG, PHƯỜNG 3, TP.HCM
-    </div>
-
-    <div class="company-addr">
-      Mã số thuế: 01031616116
-    </div>
-
-    <div class="company-addr">
-      Số tài khoản ngân hàng: 0812345678
-    </div>
+  <div style="margin:14px 18px 0;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;padding-bottom:6px;border-bottom:1px solid var(--border)">
+    ⛽ Phân tích KM & Nhiên liệu theo xe
   </div>
-
-  <div class="co-right">
-    <div class="debit-title">BẢNG CÔNG NỢ VẬN CHUYỂN</div>
-    <div class="debit-period" id="dPeriodLabel">
-      Kỳ: Tất cả
-    </div>
-  </div>
-</div>
-
-  <!-- SIGNATURE DEBIT (chỉ hiện khi in) -->
-  <div class="sign-section" id="signDebit">
-    <div class="sign-block">
-      <div class="sign-title">Người lập bảng</div>
-      <div class="sign-name">&nbsp;</div>
-      <div class="sign-sub">(Ký, họ tên)</div>
-    </div>
-    <div class="sign-block">
-      <div class="sign-title">Kế toán trưởng</div>
-      <div class="sign-name">&nbsp;</div>
-      <div class="sign-sub">(Ký, họ tên)</div>
-    </div>
-    <div class="sign-block">
-      <div class="sign-title">Giám đốc</div>
-      <div class="sign-name">&nbsp;</div>
-      <div class="sign-sub">(Ký, họ tên, đóng dấu)</div>
-    </div>
-  </div>
-
-  <!-- SUMMARY -->
-  <div class="sum-row">
-    <div class="sum-card"><div class="lbl">Tổng doanh thu (trước thuế)</div><div class="val" id="dSumRev" style="color:var(--accent)">0</div></div>
-    <div class="sum-card"><div class="lbl" id="dVatLabel">Thuế VAT (10%)</div><div class="val" id="dSumTax" style="color:var(--amber)">0</div></div>
-    <div class="sum-card"><div class="lbl">Tổng sau thuế</div><div class="val" id="dSumAfter" style="color:var(--navy)">0</div></div>
-    <div class="sum-card"><div class="lbl">Số chuyến</div><div class="val" id="dSumTrips" style="color:var(--muted)">0</div></div>
-  </div>
-
-  <!-- TABLE -->
-  <div class="tbl-wrap" style="margin-top:12px">
-    <table id="tblDebit">
-      <thead>
-        <tr>
-          <th rowspan="2">#</th>
-          <th rowspan="2">Ngày</th>
-          <th rowspan="2">Khách hàng</th>
-          <th rowspan="2" style="background:#1a3a6e">Kho / Nhà máy</th>
-          <th rowspan="2">Mã KH</th>
-          <th rowspan="2">Số xe</th>
-          <th rowspan="2">Container</th>
-          <th rowspan="2">Nơi lấy</th>
-          <th rowspan="2">Nơi hạ</th>
-          <th rowspan="2">Đơn giá VC</th>
-          <th colspan="3" style="background:#1e3a5f;text-align:center">Phụ phí</th>
-          <th rowspan="2" style="background:#1e3a5f">Phí khác</th>
-          <th rowspan="2">Tổng<br>trước thuế</th>
-          <th rowspan="2" style="color:#fbbf24" id="vatColHeader">VAT 10%</th>
-          <th rowspan="2" style="color:#86efac">Tổng<br>sau thuế</th>
-        </tr>
-        <tr>
-          <th class="sub">Phí nâng</th>
-          <th class="sub">Phí hạ</th>
-          <th class="sub">Cược cont</th>
-        </tr>
-      </thead>
-      <tbody id="tbody-debit">
-        <tr><td colspan="17" class="loading">⏳ Đang tải dữ liệu...</td></tr>
-      </tbody>
-      <tfoot id="tfoot-debit"></tfoot>
-    </table>
-  </div>
-
-</div><!-- /panel-debit -->
-
-<!-- ══════════════════════════════════════════
-     TAB 2: BẢNG LƯƠNG LÁI XE
-══════════════════════════════════════════ -->
-<div id="panel-salary" style="display:none">
-
-  <!-- FILTER -->
-  <div class="filter-wrap">
-    <input type="text" id="sSearch" placeholder="🔍 Tìm lái xe, số xe...">
-    <span class="sep">Từ</span>
-    <input type="date" id="sFrom">
-    <span class="sep">đến</span>
-    <input type="date" id="sTo">
-    <select id="sDriver" style="width:180px"><option value="">-- Tất cả lái xe --</option></select>
-    <button class="btn btn-accent btn-sm" onclick="renderSalary()">Lọc</button>
-    <button class="btn btn-gray btn-sm" onclick="clearSalary()">Reset</button>
-    <button class="btn btn-excel btn-sm" onclick="exportSalary()">↓ Excel</button>
-    <div class="pill">Tổng: <strong id="sCount">0</strong> chuyến</div>
-  </div>
-
-  <!-- COMPANY HEADER SALARY (print) -->
-  <div class="company-header">
-    <div class="co-left">
-      <div class="company-name" id="coNameSal">CÔNG TY VẬN TẢI ABC</div>
-      <div class="company-addr" id="coAddrSal">Địa chỉ: 1234 CAO THẮNG, PHƯỜNG 3, TP.HCM</div>
-      <div class="company-addr">Mã số thuế: 01031616116</div>
-    </div>
-    <div class="co-right">
-      <div class="debit-title">BẢNG LƯƠNG LÁI XE</div>
-      <div class="debit-period" id="sPeriodLabel">Kỳ: Tất cả</div>
-    </div>
-  </div>
-
-  <!-- SUMMARY -->
-  <div class="sum-row">
-    <div class="sum-card"><div class="lbl">Tổng lương</div><div class="val" id="sSumWage" style="color:var(--green)">0</div></div>
-    <div class="sum-card"><div class="lbl">Tổng chuyến</div><div class="val" id="sSumTrips" style="color:var(--navy)">0</div></div>
-    <div class="sum-card"><div class="lbl">Số lái xe</div><div class="val" id="sSumDrivers" style="color:var(--accent)">0</div></div>
-    <div class="sum-card"><div class="lbl">Lương bình quân/chuyến</div><div class="val" id="sSumAvg" style="color:var(--amber)">0</div></div>
-  </div>
-
-  <!-- TABLE CHI TIẾT LƯƠNG -->
-  <div class="tbl-wrap" style="margin-top:12px">
+  <div class="tbl-wrap" style="margin:8px 18px 24px">
     <table>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Ngày</th>
-          <th>Lái xe</th>
-          <th>Số xe</th>
-          <th>Khách hàng</th>
-          <th>Container</th>
-          <th>Nơi lấy</th>
-          <th>Nơi hạ</th>
-          <th>KM</th>
-          <th>Lương chuyến</th>
-          <th>Ghi chú</th>
-        </tr>
-      </thead>
-      <tbody id="tbody-salary">
-        <tr><td colspan="11" class="loading">⏳ Đang tải dữ liệu...</td></tr>
-      </tbody>
+      <thead><tr>
+        <th>#</th>
+        <th>Số xe</th>
+        <th>Lái xe</th>
+        <th>Số chuyến</th>
+        <th>KM từ chuyến</th>
+        <th style="background:#0369a1;color:#fff">KM thực tế (đồng hồ)</th>
+        <th style="background:#1d6ef5;color:#fff">Lít theo ĐM</th>
+        <th style="background:#e67700;color:#fff">Lít đổ thực tế</th>
+        <th style="background:#dc2626;color:#fff">Chênh lệch (lít)</th>
+        <th style="background:#dc2626;color:#fff">Tiền chênh lệch</th>
+        <th style="background:#64748b;color:#fff">KM chạy rỗng</th>
+        <th style="background:#166534;color:#fff">% Rỗng</th>
+      </tr></thead>
+      <tbody id="tbody-xe"><tr><td colspan="12" class="loading">⏳ Đang tải...</td></tr></tbody>
     </table>
-  </div>
-
-  <!-- TỔNG HỢP THEO LÁI XE -->
-  <div class="toolbar" style="margin:0 18px 6px;border-radius:var(--r);border:1px solid var(--border)">
-    <div class="toolbar-title">📋 TỔNG HỢP LƯƠNG THEO LÁI XE</div>
-  </div>
-  <div class="tbl-wrap" style="margin-top:0">
-    <table>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Lái xe</th>
-          <th>Số xe</th>
-          <th>Số chuyến</th>
-          <th>Tổng KM</th>
-          <th>Tổng lương</th>
-          <th>Lương BQ/chuyến</th>
-        </tr>
-      </thead>
-      <tbody id="tbody-salary-sum">
-        <tr><td colspan="7" class="loading">⏳ Đang tải...</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-</div><!-- /panel-salary -->
-
-<!-- SIGNATURE SALARY (chỉ hiện khi in, nằm ngoài panel để luôn in được) -->
-<div class="sign-section" id="signSalary">
-  <div class="sign-block">
-    <div class="sign-title">Người lập bảng</div>
-    <div class="sign-name">&nbsp;</div>
-    <div class="sign-sub">(Ký, họ tên)</div>
-  </div>
-  <div class="sign-block">
-    <div class="sign-title">Kế toán trưởng</div>
-    <div class="sign-name">&nbsp;</div>
-    <div class="sign-sub">(Ký, họ tên)</div>
-  </div>
-  <div class="sign-block">
-    <div class="sign-title">Giám đốc</div>
-    <div class="sign-name">&nbsp;</div>
-    <div class="sign-sub">(Ký, họ tên, đóng dấu)</div>
   </div>
 </div>
 
-<!-- TOAST -->
-<div id="toast" style="position:fixed;bottom:24px;right:24px;background:#22c55e;color:#fff;padding:10px 18px;border-radius:8px;font-size:13px;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,.15);opacity:0;transition:opacity .3s;pointer-events:none;z-index:999;"></div>
+<!-- TAB KHÁCH -->
+<div id="tab-khach" style="display:none">
+
+  <!-- ── KPI CARDS ── -->
+  <div class="sum-row" style="padding-bottom:4px">
+    <div class="sum-card"><div class="lbl">Tổng doanh thu KH</div><div class="val" id="kh-totalRev" style="color:var(--accent);font-size:18px">—</div></div>
+    <div class="sum-card"><div class="lbl">Tổng chi phí KH</div><div class="val" id="kh-totalCost" style="color:var(--red);font-size:18px">—</div></div>
+    <div class="sum-card"><div class="lbl">Lợi nhuận</div><div class="val" id="kh-totalProfit" style="color:var(--green);font-size:18px">—</div></div>
+    <div class="sum-card"><div class="lbl">Tổng chuyến</div><div class="val" id="kh-totalTrips" style="color:var(--navy);font-size:18px">—</div></div>
+    <div class="sum-card"><div class="lbl">Tổng KM</div><div class="val" id="kh-totalKm" style="color:var(--amber);font-size:18px">—</div></div>
+  </div>
+
+  <!-- ── BẢNG CHI TIẾT THEO KHÁCH HÀNG ── -->
+  <div style="margin:14px 18px 0;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;padding-bottom:6px;border-bottom:1px solid var(--border)">
+    📦 Phân tích hiệu suất chi tiết theo khách hàng
+  </div>
+  <div class="tbl-wrap" style="margin:8px 18px 24px">
+    <table>
+      <thead><tr>
+        <th>Khách hàng</th>
+        <th>Mã KH</th>
+        <th>Chuyến</th>
+        <th>KM</th>
+        <th>Doanh thu</th><th>%Tổng DT</th>
+        <th style="background:#7c3aed;color:#fff">Lương</th><th style="background:#7c3aed;color:#fff">%DT</th>
+        <th style="background:#e67700;color:#fff">Nhiên liệu</th><th style="background:#e67700;color:#fff">%DT</th>
+        <th style="background:#0369a1;color:#fff">Cầu đường</th><th style="background:#0369a1;color:#fff">%DT</th>
+        <th style="background:#dc2626;color:#fff">Sửa chữa</th><th style="background:#dc2626;color:#fff">%DT</th>
+        <th style="background:#64748b;color:#fff">Phí khác</th>
+        <th style="background:#166534;color:#fff">Tổng CP</th>
+        <th style="background:#166534;color:#fff">LN thực</th>
+        <th style="background:#166534;color:#fff">Tỷ lệ</th>
+      </tr></thead>
+      <tbody id="tbody-khach"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- TAB THÁNG -->
+<div id="tab-thang" style="display:none">
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr>
+        <th>#</th><th>Tháng</th><th>Số chuyến</th><th>Số container</th><th>Tổng KM</th>
+        <th>Doanh thu</th><th>Chi phí</th><th>Lợi nhuận</th><th>Tỷ lệ LN</th>
+      </tr></thead>
+      <tbody id="tbody-thang"><tr><td colspan="9" class="loading">⏳ Đang tải...</td></tr></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- TAB CHI PHÍ & HIỆU SUẤT -->
+<div id="tab-suachua" style="display:none">
+
+  <!-- ── KPI CARDS ── -->
+  <div class="sum-row" style="padding-bottom:4px">
+    <div class="sum-card"><div class="lbl">Tổng CP sửa chữa</div><div class="val" id="sc-maintCost" style="color:#e67700;font-size:18px">—</div></div>
+    <div class="sum-card"><div class="lbl">Tổng lương chuyến</div><div class="val" id="sc-wageCost" style="color:#7c3aed;font-size:18px">—</div></div>
+    <div class="sum-card"><div class="lbl">Tổng nhiên liệu</div><div class="val" id="sc-fuelCost" style="color:var(--amber);font-size:18px">—</div></div>
+    <div class="sum-card"><div class="lbl">Cầu đường + Phí khác</div><div class="val" id="sc-otherCost" style="color:var(--muted);font-size:18px">—</div></div>
+    <div class="sum-card"><div class="lbl">Lợi nhuận thực (gộp SC)</div><div class="val" id="sc-netProfit" style="color:var(--green);font-size:18px">—</div></div>
+  </div>
+
+  <!-- ── BREAKDOWN % TỔNG CHI PHÍ ── -->
+  <div style="margin:14px 18px 0;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;padding-bottom:6px;border-bottom:1px solid var(--border)">
+    📊 Cơ cấu chi phí tổng hợp (% trên tổng chi phí)
+  </div>
+  <div id="costBreakdownBar" style="margin:12px 18px;background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;box-shadow:var(--shadow)">
+    <div id="stackedBar" style="display:flex;height:28px;border-radius:6px;overflow:hidden;margin-bottom:12px"></div>
+    <div id="breakdownLegend" style="display:flex;flex-wrap:wrap;gap:12px;font-size:12px"></div>
+  </div>
+
+  <!-- ── BẢNG BREAKDOWN THEO XE ── -->
+  <div style="margin:14px 18px 0;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;padding-bottom:6px;border-bottom:1px solid var(--border)">
+    🚛 Phân tích chi phí chi tiết theo xe
+  </div>
+  <div class="tbl-wrap" style="margin:8px 18px 14px">
+    <table>
+      <thead><tr>
+        <th>Xe</th><th>Lái xe</th><th>Chuyến</th><th>Doanh thu</th>
+        <th style="background:#7c3aed;color:#fff">Lương</th><th style="background:#7c3aed;color:#fff">%DT</th>
+        <th style="background:#e67700;color:#fff">Nhiên liệu</th><th style="background:#e67700;color:#fff">%DT</th>
+        <th style="background:#0369a1;color:#fff">Cầu đường</th><th style="background:#0369a1;color:#fff">%DT</th>
+        <th style="background:#dc2626;color:#fff">Sửa chữa</th><th style="background:#dc2626;color:#fff">%DT</th>
+        <th style="background:#64748b;color:#fff">Phí khác</th>
+        <th style="background:#166534;color:#fff">Tổng CP</th><th style="background:#166534;color:#fff">LN thực</th><th style="background:#166534;color:#fff">Tỷ lệ</th>
+      </tr></thead>
+      <tbody id="tbody-sc-xe"></tbody>
+    </table>
+  </div>
+
+  <!-- ── BẢNG LÃI LỖ THỰC THEO THÁNG (GỘP SC) ── -->
+  <div style="margin:14px 18px 0;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;padding-bottom:6px;border-bottom:1px solid var(--border)">
+    📅 Lãi / lỗ thực theo tháng (đã gộp sửa chữa)
+  </div>
+  <div class="tbl-wrap" style="margin:8px 18px 24px">
+    <table>
+      <thead><tr>
+        <th>#</th><th>Tháng</th><th>Chuyến</th><th>Doanh thu</th>
+        <th>Lương</th><th>Nhiên liệu</th><th>Cầu đường</th><th>Sửa chữa</th><th>Phí khác</th>
+        <th>Tổng CP</th><th>Lợi nhuận thực</th><th>Tỷ lệ LN</th>
+      </tr></thead>
+      <tbody id="tbody-sc-thang"></tbody>
+    </table>
+  </div>
+</div>
 
 <script>
-/* ── GUARDS & NAV ── */
 const CURRENT_KEY="LOGIN_USER";
 const ALL_NAV=[
   {page:"index.html",       label:"🚚 Trucking"},
   {page:"accountant.html",  label:"📒 Accountant"},
   {page:"performance.html", label:"📈 Performance"},
-  {page:"overview.html",    label:"📊 Báo cáo"},
+  {page:"overview.html",    label:"📊 Overview"},
   {page:"master.html",      label:"📂 Master",      adminOnly:true},
   {page:"maintenance.html", label:"🔧 Bảo dưỡng",  adminOnly:true},
   {page:"users.html",       label:"👑 Users",        adminOnly:true},
@@ -490,60 +279,33 @@ const ALL_NAV=[
   const session=JSON.parse(localStorage.getItem(CURRENT_KEY)||"{}");
   const nav=document.getElementById("mainNav"),nr=nav.querySelector(".nav-right");
   ALL_NAV.forEach(item=>{
-    if(session.role==="admin"){/* hiện tất cả */}
-    else if(session.role==="viceadmin"){ /* hiện tất cả kể cả users.html */ }
-    else{if(!(session.pages||[]).includes(item.page)) return;}
+    if(item.adminOnly&&session.role!=="admin") return;
+    if(!item.adminOnly&&session.role!=="admin"&&!(session.pages||[]).includes(item.page)) return;
     const a=document.createElement("a");a.href=item.page;a.textContent=item.label;
     if(location.pathname.endsWith(item.page)) a.classList.add("active");
     nav.insertBefore(a,nr);
   });
   document.getElementById("userInfo").textContent=session.username?`👤 ${session.username}`:"";
-  document.getElementById("btnLogout").onclick=()=>{localStorage.removeItem(CURRENT_KEY);navigate("login.html");};
+  document.getElementById("btnLogout").onclick=()=>{localStorage.removeItem(CURRENT_KEY);location.href="login.html";};
 })();
 
-/* ── COMPANY INFO — sẽ được load sau khi rtdb init ── */
+// Init year select
+(function(){
+  const sel=document.getElementById("selYear");
+  const yr=new Date().getFullYear();
+  sel.innerHTML='<option value="">-- Tất cả --</option>';
+  for(let y=yr;y>=yr-4;y--){
+    const o=document.createElement("option");
+    o.value=y;o.textContent=y;
+    if(y===yr) o.selected=true;
+    sel.appendChild(o);
+  }
+  // Default: current month
+  document.getElementById("selMonth").value=String(new Date().getMonth()+1).padStart(2,"0");
+})();
 
-function showToast(msg){
-  const t=document.getElementById("toast");
-  t.textContent=msg;t.style.opacity=1;
-  clearTimeout(t._t);t._t=setTimeout(()=>{t.style.opacity=0;},2500);
-}
-
-function fmt(n){return Number(n||0).toLocaleString("vi-VN");}
-function fmtDate(s){if(!s)return"";const[y,m,d]=(s||"").split("-");return d?`${d}/${m}/${y}`:s;}
-
-/* ── PRINT: chỉ in tab đang active ── */
-window.addEventListener('beforeprint', function(){
-  const now = new Date();
-  const dateStr = `Ngày in: ${now.getDate().toString().padStart(2,'0')}/${(now.getMonth()+1).toString().padStart(2,'0')}/${now.getFullYear()}`;
-  const dl = document.getElementById('printDateLabel');
-  if(dl) dl.textContent = dateStr;
-  const debitActive = document.getElementById('panel-debit').style.display !== 'none';
-  document.getElementById('panel-debit').style.display  = debitActive  ? 'block' : 'none';
-  document.getElementById('panel-salary').style.display = !debitActive ? 'block' : 'none';
-  // Signature sections
-  const sd = document.getElementById('signDebit');
-  const ss = document.getElementById('signSalary');
-  if(sd) sd.style.display = debitActive  ? 'flex' : 'none';
-  if(ss) ss.style.display = !debitActive ? 'flex' : 'none';
-});
-window.addEventListener('afterprint', function(){
-  // Restore tab state
-  const debitActive = document.getElementById('tabDebit').classList.contains('active');
-  document.getElementById('panel-debit').style.display  = debitActive  ? 'block' : 'none';
-  document.getElementById('panel-salary').style.display = !debitActive ? 'block' : 'none';
-});
-window.switchTab=function(id,el){
-  document.getElementById("panel-debit").style.display=id==="debit"?"block":"none";
-  document.getElementById("panel-salary").style.display=id==="salary"?"block":"none";
-  document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));
-  el.classList.add("active");
-};
-
-/* ══════════════════════════════════════
-   FIREBASE
-══════════════════════════════════════ */
-// APP_ID từ app-config.js → window.APP_ID
+/* FIREBASE */
+const APP_ID = new URLSearchParams(location.search).get("app") || "TMSF";
 firebase.initializeApp({
   apiKey:"AIzaSyAPmHlNgx-w5KfK4LF490pvdYA_mGgcX_k",
   authDomain:"transportation-6d6f5.firebaseapp.com",
@@ -556,412 +318,597 @@ firebase.initializeApp({
 const db=firebase.firestore();
 const rtdb=firebase.database();
 
-/* ── VAT: load + lắng nghe realtime từ RT DB ── */
-let currentVAT=10;
-rtdb.ref(`settings_${APP_ID}/vat_rate`).on("value",snap=>{
-  const v=snap.val();
-  if(v!==null&&!isNaN(parseFloat(v))){
-    currentVAT=parseFloat(v);
-    document.getElementById("vatPctInput").value=currentVAT;
-    // Cập nhật label VAT trong summary card và header cột
-    const lbl=document.getElementById("dVatLabel");
-    if(lbl) lbl.textContent=`Thuế VAT (${currentVAT}%)`;
-    const hdr=document.getElementById("vatColHeader");
-    if(hdr) hdr.textContent=`VAT ${currentVAT}%`;
-    // Render lại bảng nếu đã có data
-    if(dataReady) renderDebit();
-  }
-});
+let trkStore=[], costStore={}, filteredTrk=[];
+let masterDB = {}; // real-time từ RTDB
 
-/* ── COMPANY INFO từ master — real-time RTDB ── */
+// Load master data real-time
 rtdb.ref(`master_data_${APP_ID}`).on("value", snap => {
-  try {
-    const master = snap.exists() ? snap.val() : {};
-    const co = master.company || {};
-    if (co.name) {
-      document.getElementById("coName").textContent = co.name;
-      const sal=document.getElementById("coNameSal");if(sal)sal.textContent=co.name;
-    }
-    if (co.address) {
-      document.getElementById("coAddr").textContent = "Địa chỉ: " + co.address;
-      const sal=document.getElementById("coAddrSal");if(sal)sal.textContent="Địa chỉ: "+co.address;
-    }
-    localStorage.setItem(`MASTER_ALL_V4_${APP_ID}`, JSON.stringify(master));
-  } catch(e) {}
+  masterDB = snap.exists() ? snap.val() : {};
+  localStorage.setItem(`MASTER_ALL_V4_${APP_ID}`, JSON.stringify(masterDB));
 });
 
-window.saveVAT=function(){
-  const inp=document.getElementById("vatPctInput");
-  const v=parseFloat(inp.value);
-  if(isNaN(v)||v<0||v>100){showVatStatus("⚠ Giá trị không hợp lệ","err");return;}
-  showVatStatus("⏳ Đang lưu...","saving");
-  rtdb.ref(`settings_${APP_ID}/vat_rate`).set(v).then(()=>{
-    showVatStatus(`✅ Đã lưu VAT ${v}%`,"ok");
-    setTimeout(()=>{document.getElementById("vatStatus").style.display="none";},3000);
-  }).catch(e=>showVatStatus("❌ "+e.message,"err"));
-};
-function showVatStatus(msg,cls){
-  const el=document.getElementById("vatStatus");
-  el.textContent=msg;el.className="vat-status "+cls;el.style.display="inline-block";
-}
-
-let trkStore=[], costStore={};
-let dataReady=false;
-
-db.collection(`trucking_plan_${APP_ID}`).orderBy("planDate","desc").onSnapshot(snap=>{
+// Load trucking (Firestore)
+db.collection(`trucking_plan_${APP_ID}`).onSnapshot(snap=>{
   trkStore=snap.docs.map(d=>({id:d.id,...d.data()}));
-  buildSelects();
-  if(dataReady) renderDebit(), renderSalary();
+  applyFilter();
 });
+// Load costs (Firestore)
 db.collection(`acc_costs_${APP_ID}`).onSnapshot(snap=>{
   costStore={};
   snap.docs.forEach(d=>{costStore[d.id]=d.data();});
-  dataReady=true;
-  renderDebit();
-  renderSalary();
+  applyFilter();
 });
 
-/* ── BUILD SELECTS ── */
-function buildSelects(){
-  const cusSet=new Set(), drSet=new Set();
-  trkStore.forEach(r=>{
-    if(r.customer) cusSet.add(r.customer);
-    if(r.driver)   drSet.add(r.driver);
+/* FILTER */
+function applyFilter(){
+  const month=document.getElementById("selMonth").value;
+  const year=document.getElementById("selYear").value;
+  const from=document.getElementById("fromDate").value;
+  const to=document.getElementById("toDate").value;
+
+  filteredTrk=trkStore.filter(r=>{
+    const d=r.planDate||"";
+    if(year && !d.startsWith(year)) return false;
+    if(month && d.slice(5,7)!==month) return false;
+    if(from && d<from) return false;
+    if(to && d>to) return false;
+    return true;
   });
-  const dCus=document.getElementById("dCus");
-  const sCur=dCus.value;
-  dCus.innerHTML='<option value="">-- Tất cả khách hàng --</option>';
-  [...cusSet].sort().forEach(n=>{const o=document.createElement("option");o.value=o.textContent=n;dCus.appendChild(o);});
-  dCus.value=sCur;
 
-  const sDrv=document.getElementById("sDriver");
-  const sCur2=sDrv.value;
-  sDrv.innerHTML='<option value="">-- Tất cả lái xe --</option>';
-  [...drSet].sort().forEach(n=>{const o=document.createElement("option");o.value=o.textContent=n;sDrv.appendChild(o);});
-  sDrv.value=sCur2;
+  let label="";
+  if(year&&month) label=`Tháng ${month}/${year}`;
+  else if(year) label=`Năm ${year}`;
+  else if(from||to) label=`${from||"..."} → ${to||"..."}`;
+  else label="Tất cả thời gian";
+  document.getElementById("filterInfo").textContent=`📊 ${label} — ${filteredTrk.length} chuyến`;
+
+  renderAll();
 }
-
-/* ══════════════════════════════════════
-   TAB 1: DEBIT
-══════════════════════════════════════ */
-window.clearDebit=function(){
-  document.getElementById("dSearch").value="";
-  document.getElementById("dFrom").value="";
-  document.getElementById("dTo").value="";
-  document.getElementById("dCus").value="";
-  renderDebit();
+window.clearFilter=function(){
+  document.getElementById("selMonth").value=String(new Date().getMonth()+1).padStart(2,"0");
+  document.getElementById("selYear").value=new Date().getFullYear();
+  document.getElementById("fromDate").value="";
+  document.getElementById("toDate").value="";
+  applyFilter();
 };
 
-window.renderDebit=function(){
-  const kw=(document.getElementById("dSearch").value||"").toLowerCase().trim();
-  const from=document.getElementById("dFrom").value;
-  const to=document.getElementById("dTo").value;
-  const cus=document.getElementById("dCus").value;
+/* HELPERS */
+function fmt(n){return Number(n||0).toLocaleString("vi-VN");}
+function pct(rev,cost){if(!rev) return 0; return Math.round((rev-cost)/rev*100);}
+function bar(pctVal){
+  const color=pctVal>=30?"green":pctVal>=10?"":("red");
+  const w=Math.min(Math.abs(pctVal),100);
+  return `<div class="bar-wrap"><div class="bar-fill ${color}" style="width:${w}%"></div></div>`;
+}
+function badge(profit){
+  return profit>=0
+    ? `<span class="badge-pos">+${fmt(profit)}</span>`
+    : `<span class="badge-neg">${fmt(profit)}</span>`;
+}
 
-  let rows=[...trkStore];
-  if(kw) rows=rows.filter(r=>
-    (r.customer||"").toLowerCase().includes(kw)||
-    (r.cusCode||"").toLowerCase().includes(kw)||
-    (r.containerNo||"").toLowerCase().includes(kw)||
-    (r.vehicleNo||"").toLowerCase().includes(kw)||
-    (r.depot||"").toLowerCase().includes(kw)||
-    (r.port||"").toLowerCase().includes(kw)
-  );
-  if(from) rows=rows.filter(r=>(r.planDate||"")>=from);
-  if(to)   rows=rows.filter(r=>(r.planDate||"")<=to);
-  if(cus)  rows=rows.filter(r=>r.customer===cus);
+/* RENDER ALL */
+function renderAll(){
+  updateSummary();
+  renderXe();
+  renderKhach();
+  renderThang();
+  renderSuaChua();
+}
 
-  // Period label
-  let period="Tất cả";
-  if(from&&to) period=`${fmtDate(from)} – ${fmtDate(to)}`;
-  else if(from) period=`Từ ${fmtDate(from)}`;
-  else if(to)   period=`Đến ${fmtDate(to)}`;
-  if(cus) period+=" | KH: "+cus;
-  document.getElementById("dPeriodLabel").textContent="Kỳ: "+period;
-
-  let sumRev=0;
-  const tbody=document.getElementById("tbody-debit");
-  if(!rows.length){
-    tbody.innerHTML='<tr><td colspan="17" class="loading">Không có dữ liệu</td></tr>';
-    document.getElementById("tfoot-debit").innerHTML="";
-    document.getElementById("dCount").textContent=0;
-    ["dSumRev","dSumTax","dSumAfter","dSumTrips"].forEach(id=>document.getElementById(id).textContent="0");
-    return;
-  }
-
-  tbody.innerHTML=rows.map((r,i)=>{
+/* SUMMARY */
+function updateSummary(){
+  let rev=0,cost=0,km=0;
+  filteredTrk.forEach(r=>{
     const c=costStore[r.id]||{};
-    // Doanh thu = đơn giá vc + phí nâng + phí hạ + cược cont + phí khác
-    const price   = +r.price||0;
-    const lift    = +c.lift||0;
-    const dropFee = +c.dropFee||0;
-    const deposit = +c.deposit||0;
-    const other   = +c.other||0;
-    const total   = price + lift + dropFee + deposit + other;
-    sumRev += total;
+    rev+=+c.revenue||0;
+    cost+=+c.cost||0;
+    km+=+r.km||0;
+  });
+  const profit=rev-cost;
+  document.getElementById("totalRev").textContent=fmt(rev);
+  document.getElementById("totalCost").textContent=fmt(cost);
+  document.getElementById("totalProfit").textContent=fmt(profit);
+  document.getElementById("totalProfit").style.color=profit>=0?"var(--green)":"var(--red)";
+  document.getElementById("totalTrips").textContent=filteredTrk.length;
+  document.getElementById("totalKm").textContent=fmt(km)+" km";
+}
 
-    // Ghi chú nơi lấy / nơi trả lấy từ r.depot (nơi lấy) và r.port (nơi hạ)
-    // field note riêng nếu có, fallback về depot/port
-    const notePickup  = r.depotNote  || r.depot  || "";
-    const noteDeliver = r.portNote   || r.port    || "";
+/* TAB XE — Quản lý KM & Nhiên liệu */
+function renderXe(){
+  const month=document.getElementById("selMonth").value;
+  const year =document.getElementById("selYear").value;
+  const from =document.getElementById("fromDate").value;
+  const to   =document.getElementById("toDate").value;
 
+  // ── Đọc định mức từ Master Data (real-time RTDB) ──
+  const normByXe={};
+  try {
+    (masterDB.trucks||[]).forEach(t=>{
+      const xe=(t.truck||"").trim();
+      const norm=parseFloat(t.fuel)||0;
+      if(xe && norm>0) normByXe[xe]=norm;
+    });
+  } catch(e){}
+
+  // ── Lọc fuelStore theo kỳ (field: date, truck, liters) ──
+  const filtFuel=fuelStore.filter(f=>{
+    const d=f.date||"";
+    if(year  && !d.startsWith(year))  return false;
+    if(month && d.slice(5,7)!==month) return false;
+    if(from  && d<from)               return false;
+    if(to    && d>to)                 return false;
+    return true;
+  });
+
+  // ── Tổng lít đổ thực tế + KM đồng hồ trong kỳ + giá bình quân theo xe ──
+  // KM đồng hồ trong kỳ = kmAt cao nhất − kmPrev thấp nhất trong các lần đổ của kỳ đó
+  const fuelByXe={};
+  const fuelCostByXe={};
+  const kmAtMaxByXe={};   // kmAt cao nhất trong kỳ
+  const kmPrevMinByXe={}; // kmPrev thấp nhất trong kỳ (= km đầu kỳ)
+  filtFuel.forEach(f=>{
+    const xe=(f.truck||"").trim();
+    if(!xe) return;
+    const liters =+f.liters ||0;
+    const total  =+f.total  ||0;
+    const kmAt   =+f.kmAt   ||0;
+    const kmPrev =+f.kmPrev ||0;
+    if(liters>0) fuelByXe[xe]=(fuelByXe[xe]||0)+liters;
+    if(total >0) fuelCostByXe[xe]=(fuelCostByXe[xe]||0)+total;
+    if(kmAt  >0) kmAtMaxByXe[xe]=Math.max(kmAtMaxByXe[xe]||0, kmAt);
+    if(kmPrev>0) kmPrevMinByXe[xe]=(kmPrevMinByXe[xe]===undefined)?kmPrev:Math.min(kmPrevMinByXe[xe],kmPrev);
+  });
+  // KM chạy trong kỳ theo đồng hồ = kmAt_max − kmPrev_min
+  const kmDongHoByXe={};
+  Object.keys(kmAtMaxByXe).forEach(xe=>{
+    const diff=(kmAtMaxByXe[xe]||0)-(kmPrevMinByXe[xe]||0);
+    if(diff>0) kmDongHoByXe[xe]=diff;
+    else if(kmAtMaxByXe[xe]>0) kmDongHoByXe[xe]=kmAtMaxByXe[xe]; // chỉ có 1 lần đổ
+  });
+
+  // ── Gộp trucking theo xe ──
+  const map={};
+  filteredTrk.forEach(r=>{
+    const key=(r.vehicleNo||"(chưa có xe)").trim();
+    if(!map[key]) map[key]={vehicle:key,driver:r.driver||"",trips:0,km:0};
+    map[key].trips++;
+    map[key].km+=+r.km||0;
+    if(r.driver) map[key].driver=r.driver;
+  });
+  // Thêm xe có đổ nhiên liệu nhưng không có chuyến trong kỳ
+  Object.keys(fuelByXe).forEach(xe=>{
+    if(!map[xe]) map[xe]={vehicle:xe,driver:"",trips:0,km:0};
+  });
+
+  const DEFAULT_NORM=30; // lít/100km fallback
+  const rows=Object.values(map).sort((a,b)=>b.km-a.km);
+
+  // ── KPI tổng ──
+  let tKm=0,tKmDH=0,tLitDM=0,tLitTT=0,tFuelCost=0,tKmRong=0;
+  rows.forEach(r=>{
+  const norm =normByXe[r.vehicle]||DEFAULT_NORM;
+  const kmDH =kmDongHoByXe[r.vehicle]||0;
+
+  tKm      +=r.km;
+  tKmDH    +=kmDH;
+  tLitDM   +=r.km*(norm/100);
+    tLitTT   +=fuelByXe[r.vehicle]||0;
+    tFuelCost+=fuelCostByXe[r.vehicle]||0;
+    tKmRong  +=kmDH>0?kmDH-r.km:0;
+  });
+  const tCL=tLitTT-tLitDM;
+  const tGiaGQ=tLitTT>0?Math.round(tFuelCost/tLitTT):0;
+  const tTienCL=tCL*tGiaGQ;
+
+  document.getElementById("km-totalKmDH").textContent=tKmDH>0?fmt(tKmDH)+" km":"—";
+  document.getElementById("km-litDM").textContent=tLitDM.toFixed(1)+" lít";
+  document.getElementById("km-litTT").textContent=tLitTT>0?tLitTT.toFixed(1)+" lít":"—";
+  const tGiaGQkpi=tGiaGQ;
+  const tTienCLkpi=tTienCL;
+  const clEl=document.getElementById("km-litCL");
+  clEl.innerHTML=tLitTT>0
+    ?`${(tCL>=0?"+":"")+tCL.toFixed(1)} lít<div style="font-size:13px;margin-top:2px">${tTienCLkpi>=0?"+":""}${fmt(Math.round(tTienCLkpi))}đ${tGiaGQkpi>0?` <span style="font-size:10px;font-weight:400">(~${fmt(tGiaGQkpi)}đ/lít)</span>`:""}</div>`
+    :"—";
+  clEl.style.color=tCL>0?"var(--red)":tCL<0?"var(--green)":"var(--muted)";
+  document.getElementById("km-kmRong").textContent=tKmRong>0?fmt(tKmRong)+" km":"—";
+
+  // ── Render bảng ──
+  const tbody=document.getElementById("tbody-xe");
+  if(!rows.length){tbody.innerHTML='<tr><td colspan="12" class="loading">Không có dữ liệu</td></tr>';return;}
+  tbody.innerHTML=rows.map((r,i)=>{
+    const norm=normByXe[r.vehicle]||DEFAULT_NORM;
+    const hasMasterNorm=!!normByXe[r.vehicle];
+    const kmDH  =kmDongHoByXe[r.vehicle]||0;
+       const litDM =r.km*(norm/100);        // lít theo ĐM tính trên km từ chuyến
+    const litTT =fuelByXe[r.vehicle]||0;
+    const cl    =litTT-litDM;             // chênh lệch lít
+    const kmRong=kmDH>0?kmDH-r.km:0;  // dương = chạy rỗng, âm = đồng hồ < chuyến
+    const tyLe  =kmDH>0?Math.round(kmRong/kmDH*100):0;
+    const giaGQ =litTT>0?Math.round((fuelCostByXe[r.vehicle]||0)/litTT):0;
+    const tienCL=cl*giaGQ;
+    const clColor  =cl>0?"var(--red)":cl<0?"var(--green)":"var(--muted)";
+    const kmRongColor=kmRong>0?"var(--red)":kmRong<0?"#e67700":"var(--muted)";
+    const tyLeColor  =tyLe>50?"var(--red)":tyLe>20?"#e67700":tyLe<0?"#e67700":"var(--green)";
     return `<tr>
       <td>${i+1}</td>
-      <td style="white-space:nowrap">${fmtDate(r.planDate)}</td>
-      <td class="tl" style="font-weight:700;white-space:nowrap">${r.customer||""}</td>
-      <td class="tl" style="max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${r.factory||""}">${r.factory||""}</td>
-      <td style="white-space:nowrap">${r.cusCode||""}</td>
-      <td style="font-family:monospace;font-weight:600">${r.vehicleNo||""}</td>
-      <td style="font-family:monospace">${r.containerNo||""}</td>
-      <td class="tl" style="max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${r.depot||""}">${r.depot||""}</td>
-      <td class="tl" style="max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${r.port||""}">${r.port||""}</td>
-      <td class="num">${price?fmt(price):""}</td>
-      <td class="num">${lift?fmt(lift):""}</td>
-      <td class="num">${dropFee?fmt(dropFee):""}</td>
-      <td class="num">${deposit?fmt(deposit):""}</td>
-      <td class="num">${other?fmt(other):""}</td>
-      <td class="num" style="font-weight:700;color:var(--accent)">${fmt(total)}</td>
-      <td class="num" style="color:var(--amber)">${fmt(Math.round(total*currentVAT/100))}</td>
-      <td class="num" style="font-weight:700;color:var(--navy)">${fmt(Math.round(total*(1+currentVAT/100)))}</td>
+      <td style="font-weight:700;font-family:monospace;white-space:nowrap">${r.vehicle}</td>
+      <td class="tl" style="white-space:nowrap">${r.driver||"—"}</td>
+      <td style="font-weight:600">${r.trips}</td>
+      <td class="num" style="color:var(--amber);font-weight:700">${fmt(r.km)} km
+        <div style="font-size:10px;color:${hasMasterNorm?"var(--accent)":"#dc2626"};font-weight:700">ĐM: ${norm} lít/100km${hasMasterNorm?"":" ⚠ chưa có trong Master"}</div>
+      </td>
+      <td class="num" style="color:#0369a1;font-weight:700">${kmDH>0?fmt(kmDH)+' km':'<span style="color:#94a3b8">—</span>'}</td>
+      <td class="num" style="color:#1d6ef5;font-weight:700">${litDM.toFixed(1)} lít</td>
+      <td class="num" style="color:#e67700;font-weight:700">
+        ${litTT>0?litTT.toFixed(1)+' lít':'<span style="color:#94a3b8">—</span>'}
+        ${giaGQ>0?`<div style="font-size:10px;color:#94a3b8;font-weight:400">~${fmt(giaGQ)}đ/lít</div>`:""}
+      </td>
+      <td class="num" style="color:${clColor};font-weight:700">${litTT>0?(cl>=0?"+":"")+cl.toFixed(1)+' lít':'<span style="color:#94a3b8">—</span>'}</td>
+      <td class="num" style="color:${clColor};font-weight:800;font-size:13px">
+        ${litTT>0&&giaGQ>0?`${tienCL>=0?"+":""}${fmt(Math.round(tienCL))}<span style="font-size:10px;font-weight:400;margin-left:2px">đ</span>`:'<span style="color:#94a3b8">—</span>'}
+      </td>
+      <td class="num" style="color:${kmRongColor};font-weight:700">
+        ${kmDH>0
+          ? kmRong>0 ? fmt(kmRong)+' km'
+          : kmRong<0 ? `<span style="font-size:11px">${kmRong} km<div style="font-size:9px;color:#e67700;font-weight:400">đồng hồ < chuyến</div></span>`
+          : '—'
+          : '<span style="color:#94a3b8">—</span>'}
+      </td>
+      <td style="font-weight:700;color:${tyLeColor}">
+        ${kmDH>0 ? (tyLe>=0?tyLe:tyLe)+'%' : '—'}
+      </td>
     </tr>`;
-  }).join("");
-
-  const tax=Math.round(sumRev*currentVAT/100);
-  const after=sumRev+tax;
-
-  // Footer tổng cộng
-  document.getElementById("tfoot-debit").innerHTML=`<tr>
-    <td colspan="14" class="tl" style="font-weight:700;color:var(--navy);font-size:12.5px">TỔNG CỘNG (${rows.length} chuyến)</td>
-    <td class="num" style="color:var(--accent)">${fmt(sumRev)}</td>
-    <td class="num" style="color:var(--amber)">${fmt(tax)}</td>
-    <td class="num" style="color:var(--navy)">${fmt(after)}</td>
+  }).join("")+
+  `<tr style="background:#1e293b!important;color:#fff!important;font-weight:700;font-size:13px">
+    <td colspan="3" style="background:#1e293b;color:#94a3b8;font-size:11px;letter-spacing:.08em;text-transform:uppercase">Tổng cộng</td>
+    <td style="background:#1e293b;color:#fff;text-align:center">${rows.reduce((s,r)=>s+r.trips,0)}</td>
+    <td class="num" style="background:#1e293b;color:#fff">${fmt(tKm)} km</td>
+    <td class="num" style="background:#1e293b;color:#fff">${tKmDH>0?fmt(tKmDH)+' km':'—'}</td>
+    <td class="num" style="background:#1e293b;color:#fff">${tLitDM.toFixed(1)} lít</td>
+    <td class="num" style="background:#1e293b;color:#fff">
+      ${tLitTT>0?tLitTT.toFixed(1)+' lít':'—'}
+      ${tGiaGQ>0?`<div style="font-size:10px;color:#94a3b8;font-weight:400">~${fmt(tGiaGQ)}đ/lít</div>`:''}
+    </td>
+    <td class="num" style="background:#1e293b;color:${tCL>0?"#f87171":tCL<0?"#4ade80":"#fff"}">${tLitTT>0?(tCL>=0?"+":"")+tCL.toFixed(1)+' lít':'—'}</td>
+    <td class="num" style="background:#1e293b;color:${tTienCL>0?"#f87171":tTienCL<0?"#4ade80":"#fff"}">
+      ${tLitTT>0&&tGiaGQ>0?(tTienCL>=0?"+":"")+fmt(Math.round(tTienCL))+'đ':'—'}
+    </td>
+    <td class="num" style="background:#1e293b;color:#fff">${tKmRong>0?fmt(tKmRong)+' km':'—'}</td>
+    <td style="background:#1e293b"></td>
   </tr>`;
+}
 
-  document.getElementById("dCount").textContent=rows.length;
-  document.getElementById("dSumRev").textContent=fmt(sumRev);
-  document.getElementById("dSumTax").textContent=fmt(tax);
-  document.getElementById("dSumAfter").textContent=fmt(after);
-  document.getElementById("dSumTrips").textContent=rows.length;
-};
-
-/* ══════════════════════════════════════
-   TAB 2: LƯƠNG LÁI XE
-══════════════════════════════════════ */
-window.clearSalary=function(){
-  document.getElementById("sSearch").value="";
-  document.getElementById("sFrom").value="";
-  document.getElementById("sTo").value="";
-  document.getElementById("sDriver").value="";
-  renderSalary();
-};
-
-window.renderSalary=function(){
-  const kw=(document.getElementById("sSearch").value||"").toLowerCase().trim();
-  const from=document.getElementById("sFrom").value;
-  const to=document.getElementById("sTo").value;
-  const drv=document.getElementById("sDriver").value;
-
-  // Period label for salary print header
-  let period="Tất cả";
-  if(from&&to) period=`${fmtDate(from)} – ${fmtDate(to)}`;
-  else if(from) period=`Từ ${fmtDate(from)}`;
-  else if(to)   period=`Đến ${fmtDate(to)}`;
-  if(drv) period+=" | Lái xe: "+drv;
-  const spLabel=document.getElementById("sPeriodLabel");
-  if(spLabel) spLabel.textContent="Kỳ: "+period;
-
-  let rows=[...trkStore];
-  if(kw) rows=rows.filter(r=>
-    (r.driver||"").toLowerCase().includes(kw)||
-    (r.vehicleNo||"").toLowerCase().includes(kw)
-  );
-  if(from) rows=rows.filter(r=>(r.planDate||"")>=from);
-  if(to)   rows=rows.filter(r=>(r.planDate||"")<=to);
-  if(drv)  rows=rows.filter(r=>r.driver===drv);
-
-  // Chi tiết
-  let sumWage=0;
-  const tbody=document.getElementById("tbody-salary");
-  if(!rows.length){
-    tbody.innerHTML='<tr><td colspan="11" class="loading">Không có dữ liệu</td></tr>';
-    document.getElementById("tbody-salary-sum").innerHTML='<tr><td colspan="7" class="loading">Không có dữ liệu</td></tr>';
-    document.getElementById("sCount").textContent=0;
-    ["sSumWage","sSumTrips","sSumDrivers","sSumAvg"].forEach(id=>document.getElementById(id).textContent="0");
-    return;
-  }
-
-  tbody.innerHTML=rows.map((r,i)=>{
+/* TAB KHÁCH */
+function renderKhach(){
+  const map={};
+  filteredTrk.forEach(r=>{
+    const key=(r.customer||"(chưa có KH)").trim();
+    if(!map[key]) map[key]={customer:key,cusCode:r.cusCode||"",trips:0,km:0,rev:0,wage:0,fuel:0,toll:0,repair:0,other:0};
     const c=costStore[r.id]||{};
-    const wage=+c.wage||+r.wage||0;
-    sumWage+=wage;
+    map[key].trips++;
+    map[key].km   +=+r.km||0;
+    map[key].rev  +=+c.revenue||0;
+    map[key].wage +=+c.wage   ||0;
+    map[key].fuel +=+c.fuel   ||0;
+    map[key].toll +=+c.toll   ||0;
+    map[key].repair+=+c.repair||0;
+    map[key].other+=+c.other  ||0;
+    if(r.cusCode) map[key].cusCode=r.cusCode;
+  });
+  const rows=Object.values(map).sort((a,b)=>b.rev-a.rev);
+
+  // KPI
+  const tRev=rows.reduce((s,r)=>s+r.rev,0);
+  const tWage=rows.reduce((s,r)=>s+r.wage,0);
+  const tFuel=rows.reduce((s,r)=>s+r.fuel,0);
+  const tToll=rows.reduce((s,r)=>s+r.toll,0);
+  const tRepair=rows.reduce((s,r)=>s+r.repair,0);
+  const tOther=rows.reduce((s,r)=>s+r.other,0);
+  const tCost=tWage+tFuel+tToll+tRepair+tOther;
+  const tProfit=tRev-tCost;
+  const tTrips=rows.reduce((s,r)=>s+r.trips,0);
+  const tKm=rows.reduce((s,r)=>s+r.km,0);
+  document.getElementById("kh-totalRev").textContent=fmt(tRev);
+  document.getElementById("kh-totalCost").textContent=fmt(tCost);
+  document.getElementById("kh-totalProfit").textContent=fmt(tProfit);
+  document.getElementById("kh-totalProfit").style.color=tProfit>=0?"var(--green)":"var(--red)";
+  document.getElementById("kh-totalTrips").textContent=tTrips;
+  document.getElementById("kh-totalKm").textContent=fmt(tKm)+" km";
+
+  // Table rows — same colP helper as suachua tab
+  const colP=(val,rev)=>{
+    if(!val||!rev) return '<span style="color:#94a3b8">—</span>';
+    const p=Math.round(val/rev*100);
+    const c=p>30?"#dc2626":p>15?"#e67700":"#16a34a";
+    return `<span style="font-size:10.5px;font-weight:700;color:${c}">${p}%</span>`;
+  };
+  const fmtC=v=>v?`<span style="font-weight:600">${fmt(v)}</span>`:'<span style="color:#94a3b8">—</span>';
+
+  const tbody=document.getElementById("tbody-khach");
+  if(!rows.length){tbody.innerHTML='<tr><td colspan="18" class="loading">Không có dữ liệu</td></tr>';return;}
+  tbody.innerHTML=rows.map(r=>{
+    const totalC=r.wage+r.fuel+r.toll+r.repair+r.other;
+    const profit=r.rev-totalC;
+    const pln=r.rev?Math.round(profit/r.rev*100):0;
+    const pDt=tRev?Math.round(r.rev/tRev*100):0;
+    return `<tr>
+      <td class="tl" style="font-weight:700;white-space:nowrap">${r.customer}</td>
+      <td style="font-family:monospace;font-size:11px;color:var(--muted)">${r.cusCode||"—"}</td>
+      <td style="font-weight:600">${r.trips}</td>
+      <td class="num" style="color:var(--amber);font-weight:600">${fmt(r.km)} km</td>
+      <td class="num" style="color:var(--accent);font-weight:700">${fmt(r.rev)}</td>
+      <td><span style="background:#1d6ef518;border:1px solid #1d6ef544;border-radius:10px;padding:1px 7px;font-size:11px;font-weight:700;color:#1d6ef5">${pDt}%</span></td>
+      <td class="num" style="color:#7c3aed">${fmtC(r.wage)}</td><td>${colP(r.wage,r.rev)}</td>
+      <td class="num" style="color:#e67700">${fmtC(r.fuel)}</td><td>${colP(r.fuel,r.rev)}</td>
+      <td class="num" style="color:#0369a1">${fmtC(r.toll)}</td><td>${colP(r.toll,r.rev)}</td>
+      <td class="num" style="color:#dc2626;font-weight:700">${fmtC(r.repair)}</td><td>${colP(r.repair,r.rev)}</td>
+      <td class="num" style="color:#64748b">${fmtC(r.other)}</td>
+      <td class="num" style="color:var(--red);font-weight:700">${fmt(totalC)}</td>
+      <td class="num" style="color:${profit>=0?"var(--green)":"var(--red)"};font-weight:700">${fmt(profit)}</td>
+      <td style="font-weight:700;color:${pln>=0?"var(--green)":"var(--red)"}">${pln}%</td>
+    </tr>`;
+  }).join("");
+}
+
+/* TAB THÁNG */
+function renderThang(){
+  // Tab tháng luôn hiển thị tất cả tháng trong năm đang chọn (bỏ qua filter tháng cụ thể)
+  const year=document.getElementById("selYear").value;
+  const from=document.getElementById("fromDate").value;
+  const to  =document.getElementById("toDate").value;
+  const srcThang=trkStore.filter(r=>{
+    const d=r.planDate||"";
+    if(year && !d.startsWith(year)) return false;
+    if(from && d<from) return false;
+    if(to   && d>to)   return false;
+    return true;
+  });
+  const map={};
+  srcThang.forEach(r=>{
+    const d=r.planDate||"";
+    const key=d.slice(0,7); // YYYY-MM
+    if(!key) return;
+    if(!map[key]) map[key]={month:key,trips:0,containers:0,km:0,rev:0,cost:0};
+    const c=costStore[r.id]||{};
+    map[key].trips++;
+    if(r.containerNo) map[key].containers++;
+    map[key].km+=+r.km||0;
+    map[key].rev+=+c.revenue||0;
+    map[key].cost+=+c.cost||0;
+  });
+  const rows=Object.values(map).sort((a,b)=>b.month.localeCompare(a.month));
+  const tbody=document.getElementById("tbody-thang");
+  if(!rows.length){tbody.innerHTML='<tr><td colspan="9" class="loading">Không có dữ liệu</td></tr>';return;}
+  tbody.innerHTML=rows.map((r,i)=>{
+    const profit=r.rev-r.cost, p=pct(r.rev,r.cost);
+    const [yr,mo]=r.month.split("-");
     return `<tr>
       <td>${i+1}</td>
-      <td style="white-space:nowrap">${fmtDate(r.planDate)}</td>
-      <td class="tl" style="font-weight:700">${r.driver||""}</td>
-      <td style="font-family:monospace;font-weight:600">${r.vehicleNo||""}</td>
-      <td class="tl">${r.customer||""}</td>
-      <td style="font-family:monospace">${r.containerNo||""}</td>
-      <td class="tl" style="max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${r.depot||""}">${r.depot||""}</td>
-      <td class="tl" style="max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${r.port||""}">${r.port||""}</td>
-      <td class="num">${r.km||""}</td>
-      <td class="num" style="color:var(--green);font-weight:700">${wage?fmt(wage):""}</td>
-      <td class="tl" style="color:var(--muted)">${c.note||""}</td>
+      <td style="font-weight:700">Tháng ${mo}/${yr}</td>
+      <td style="font-weight:600">${r.trips}</td>
+      <td style="font-weight:600">${r.containers}</td>
+      <td class="num">${fmt(r.km)} km</td>
+      <td class="num" style="color:var(--accent)">${fmt(r.rev)}</td>
+      <td class="num" style="color:var(--red)">${fmt(r.cost)}</td>
+      <td>${badge(profit)}</td>
+      <td style="font-weight:700;color:${p>=0?"var(--green)":"var(--red)"}">${p}%</td>
+    </tr>`;
+  }).join("");
+}
+
+/* TABS */
+window.openTab=function(id,el){
+  ["xe","khach","thang","suachua"].forEach(t=>{
+    const p=document.getElementById("tab-"+t);
+    if(p) p.style.display="none";
+  });
+  document.getElementById("tab-"+id).style.display="block";
+  document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));
+  el.classList.add("active");
+};
+
+/* ── Load maintenance từ Firebase Realtime DB (node: maintenance_data) ── */
+// DB.fuels[]: { date, truck, driver, station, liters, unitPrice, total, kmAt, kmPrev, consume, rate, note }
+// DB.repairs[]: { date, vehicle, ... }
+let maintStore=[];   // repairs (cho tab Chi phí & Hiệu suất)
+let fuelStore=[];    // fuels   (cho tab KM & Nhiên liệu)
+
+rtdb.ref(`maintenance_data_${APP_ID}`).on("value", snap=>{
+  if(snap.exists()){
+    const data=snap.val();
+    // repairs → maintStore (dùng cho renderSuaChua)
+    maintStore=Array.isArray(data.repairs)?data.repairs
+      :(data.repairs?Object.values(data.repairs):[]);
+    // fuels → fuelStore (dùng cho renderXe)
+    fuelStore=Array.isArray(data.fuels)?data.fuels
+      :(data.fuels?Object.values(data.fuels):[]);
+  } else {
+    // fallback localStorage
+    try{
+      const local=JSON.parse(localStorage.getItem(`MAINT_DATA_${APP_ID}`)||"{}");
+      maintStore=local.repairs||[];
+      fuelStore =local.fuels  ||[];
+    }catch(e){}
+  }
+  renderSuaChua();
+  renderXe();
+},()=>{
+  // fallback localStorage nếu lỗi kết nối
+  try{
+    const local=JSON.parse(localStorage.getItem(`MAINT_DATA_${APP_ID}`)||"{}");
+    maintStore=local.repairs||[];
+    fuelStore =local.fuels  ||[];
+    renderSuaChua();
+    renderXe();
+  }catch(e){}
+});
+
+/* ══════════════════════════════════════════════
+   renderSuaChua — Chi phí & Hiệu suất
+   ══════════════════════════════════════════════ */
+function renderSuaChua(){
+  const month=document.getElementById("selMonth").value;
+  const year =document.getElementById("selYear").value;
+  const from =document.getElementById("fromDate").value;
+  const to   =document.getElementById("toDate").value;
+
+  const filtMaint=maintStore.filter(m=>{
+    const d=m.date||m.repairDate||m.planDate||"";
+    if(year  && !d.startsWith(year))  return false;
+    if(month && d.slice(5,7)!==month) return false;
+    if(from  && d<from)               return false;
+    if(to    && d>to)                 return false;
+    return true;
+  });
+
+  // CP sửa chữa từ maintenance repairs, map theo xe
+  // repair object: { date, vehicle, desc, total, ... }
+  const maintByXe={};
+  filtMaint.forEach(m=>{
+    const xe=(m.vehicle||m.vehicleNo||m.truck||"").trim()||"__maint__";
+    maintByXe[xe]=(maintByXe[xe]||0)+(+m.total||+m.cost||+m.totalCost||+m.amount||0);
+  });
+
+  // Tổng hợp trucking theo xe
+  const xeMap={};
+  filteredTrk.forEach(r=>{
+    const key=(r.vehicleNo||"(chưa có xe)").trim();
+    if(!xeMap[key]) xeMap[key]={vehicle:key,driver:r.driver||"",trips:0,rev:0,wage:0,fuel:0,toll:0,repair:0,other:0};
+    const c=costStore[r.id]||{};
+    xeMap[key].trips++;
+    xeMap[key].rev   +=+c.revenue||0;
+    xeMap[key].wage  +=+c.wage   ||0;
+    xeMap[key].fuel  +=+c.fuel   ||0;
+    xeMap[key].toll  +=+c.toll   ||0;
+    xeMap[key].repair+=+c.repair ||0;
+    xeMap[key].other +=+c.other  ||0;
+    if(r.driver) xeMap[key].driver=r.driver;
+  });
+  // Gộp CP sửa chữa từ maintenance
+  Object.keys(maintByXe).forEach(xe=>{
+    const k=xe==="__maint__"?"(sửa chữa - không rõ xe)":xe;
+    if(!xeMap[k]) xeMap[k]={vehicle:k,driver:"",trips:0,rev:0,wage:0,fuel:0,toll:0,repair:0,other:0};
+    xeMap[k].repair+=maintByXe[xe];
+  });
+
+  const rows=Object.values(xeMap).sort((a,b)=>b.rev-a.rev);
+
+  // ── KPI ──
+  let tW=0,tF=0,tT=0,tR=0,tO=0,tRev=0;
+  rows.forEach(r=>{tW+=r.wage;tF+=r.fuel;tT+=r.toll;tR+=r.repair;tO+=r.other;tRev+=r.rev;});
+  const tCost=tW+tF+tT+tR+tO, netP=tRev-tCost;
+  document.getElementById("sc-maintCost").textContent=fmt(tR);
+  document.getElementById("sc-wageCost").textContent =fmt(tW);
+  document.getElementById("sc-fuelCost").textContent =fmt(tF);
+  document.getElementById("sc-otherCost").textContent=fmt(tT+tO);
+  document.getElementById("sc-netProfit").textContent=fmt(netP);
+  document.getElementById("sc-netProfit").style.color=netP>=0?"var(--green)":"var(--red)";
+
+  // ── Stacked bar ──
+  const segs=[
+    {label:"Lương chuyến",val:tW,color:"#7c3aed"},
+    {label:"Nhiên liệu",  val:tF,color:"#e67700"},
+    {label:"Cầu đường",   val:tT,color:"#0369a1"},
+    {label:"Sửa chữa",    val:tR,color:"#dc2626"},
+    {label:"Phí khác",    val:tO,color:"#64748b"},
+  ].filter(s=>s.val>0);
+  const barEl=document.getElementById("stackedBar");
+  const legEl=document.getElementById("breakdownLegend");
+  if(tCost>0){
+    barEl.innerHTML=segs.map(s=>{
+      const p=Math.round(s.val/tCost*100);
+      return `<div style="width:${p}%;background:${s.color};min-width:${p>0?3:0}px;transition:.3s" title="${s.label}: ${fmt(s.val)} (${p}%)"></div>`;
+    }).join("");
+    legEl.innerHTML=segs.map(s=>{
+      const p=Math.round(s.val/tCost*100);
+      return `<div style="display:flex;align-items:center;gap:5px">
+        <div style="width:11px;height:11px;border-radius:2px;background:${s.color};flex-shrink:0"></div>
+        <span style="color:var(--muted);font-size:12px">${s.label}</span>
+        <strong style="font-size:12px">${fmt(s.val)}</strong>
+        <span style="background:${s.color}18;border:1px solid ${s.color}44;border-radius:10px;padding:1px 7px;font-size:11px;font-weight:700;color:${s.color}">${p}%</span>
+      </div>`;
+    }).join("");
+  } else {
+    barEl.innerHTML='<div style="width:100%;background:#e2e8f5;height:28px;border-radius:6px"></div>';
+    legEl.innerHTML='<span style="color:var(--muted);font-size:12px">Chưa có dữ liệu chi phí</span>';
+  }
+
+  // ── Bảng theo xe ──
+  const colP=(val,rev)=>{
+    if(!val||!rev) return '<span style="color:#94a3b8">—</span>';
+    const p=Math.round(val/rev*100);
+    const c=p>30?"#dc2626":p>15?"#e67700":"#16a34a";
+    return `<span style="font-size:10.5px;font-weight:700;color:${c}">${p}%</span>`;
+  };
+  const tbody=document.getElementById("tbody-sc-xe");
+  if(!rows.length){tbody.innerHTML='<tr><td colspan="16" class="loading">Không có dữ liệu</td></tr>';return;}
+  tbody.innerHTML=rows.map(r=>{
+    const totalC=r.wage+r.fuel+r.toll+r.repair+r.other;
+    const profit=r.rev-totalC;
+    const pln=r.rev?Math.round(profit/r.rev*100):0;
+    const fmtC=v=>v?`<span style="font-weight:600">${fmt(v)}</span>`:'<span style="color:#94a3b8">—</span>';
+    return `<tr>
+      <td style="font-weight:700;font-family:monospace;white-space:nowrap">${r.vehicle}</td>
+      <td class="tl" style="white-space:nowrap">${r.driver}</td>
+      <td style="font-weight:600">${r.trips||"—"}</td>
+      <td class="num" style="color:var(--accent);font-weight:700">${fmt(r.rev)}</td>
+      <td class="num" style="color:#7c3aed">${fmtC(r.wage)}</td><td>${colP(r.wage,r.rev)}</td>
+      <td class="num" style="color:#e67700">${fmtC(r.fuel)}</td><td>${colP(r.fuel,r.rev)}</td>
+      <td class="num" style="color:#0369a1">${fmtC(r.toll)}</td><td>${colP(r.toll,r.rev)}</td>
+      <td class="num" style="color:#dc2626;font-weight:700">${fmtC(r.repair)}</td><td>${colP(r.repair,r.rev)}</td>
+      <td class="num" style="color:#64748b">${fmtC(r.other)}</td>
+      <td class="num" style="color:var(--red);font-weight:700">${fmt(totalC)}</td>
+      <td class="num" style="color:${profit>=0?"var(--green)":"var(--red)"};font-weight:700">${fmt(profit)}</td>
+      <td style="font-weight:700;color:${pln>=0?"var(--green)":"var(--red)"}">${pln}%</td>
     </tr>`;
   }).join("");
 
-  // Tổng hợp theo lái xe
-  const driverMap={};
-  rows.forEach(r=>{
-    const key=r.driver||"(Chưa có)";
-    if(!driverMap[key]) driverMap[key]={driver:key,vehicle:r.vehicleNo||"",trips:0,km:0,wage:0};
+  // ── Bảng theo tháng ──
+  const moMap={};
+  filteredTrk.forEach(r=>{
+    const key=(r.planDate||"").slice(0,7); if(!key) return;
+    if(!moMap[key]) moMap[key]={trips:0,rev:0,wage:0,fuel:0,toll:0,repair:0,other:0};
     const c=costStore[r.id]||{};
-    driverMap[key].trips++;
-    driverMap[key].km+=+r.km||0;
-    driverMap[key].wage+=+c.wage||+r.wage||0;
-    if(r.vehicleNo) driverMap[key].vehicle=r.vehicleNo;
+    moMap[key].trips++;
+    moMap[key].rev   +=+c.revenue||0;
+    moMap[key].wage  +=+c.wage   ||0;
+    moMap[key].fuel  +=+c.fuel   ||0;
+    moMap[key].toll  +=+c.toll   ||0;
+    moMap[key].repair+=+c.repair ||0;
+    moMap[key].other +=+c.other  ||0;
   });
-  const driverRows=Object.values(driverMap).sort((a,b)=>b.wage-a.wage);
-  document.getElementById("tbody-salary-sum").innerHTML=driverRows.map((d,i)=>`<tr>
-    <td>${i+1}</td>
-    <td class="tl" style="font-weight:700">${d.driver}</td>
-    <td style="font-family:monospace">${d.vehicle}</td>
-    <td style="font-weight:600">${d.trips}</td>
-    <td class="num">${fmt(d.km)} km</td>
-    <td class="num" style="color:var(--green);font-weight:700">${fmt(d.wage)}</td>
-    <td class="num" style="color:var(--muted)">${d.trips?fmt(Math.round(d.wage/d.trips)):""}</td>
-  </tr>`).join("");
-
-  const avgWage=rows.length?Math.round(sumWage/rows.length):0;
-  document.getElementById("sCount").textContent=rows.length;
-  document.getElementById("sSumWage").textContent=fmt(sumWage);
-  document.getElementById("sSumTrips").textContent=rows.length;
-  document.getElementById("sSumDrivers").textContent=Object.keys(driverMap).length;
-  document.getElementById("sSumAvg").textContent=fmt(avgWage);
-};
-
-/* ══════════════════════════════════════
-   EXPORT EXCEL
-══════════════════════════════════════ */
-function csvDownload(filename, rows){
-  const csv=rows.map(r=>r.map(c=>'"'+(String(c||"").replace(/"/g,'""'))+'"').join(",")).join("\n");
-  const blob=new Blob(["\uFEFF"+csv],{type:"text/csv;charset=utf-8;"});
-  const a=document.createElement("a");
-  a.href=URL.createObjectURL(blob);
-  a.download=filename;
-  document.body.appendChild(a);a.click();document.body.removeChild(a);
+  filtMaint.forEach(m=>{
+    const d=m.date||m.repairDate||m.planDate||"";
+    const key=d.slice(0,7); if(!key) return;
+    if(!moMap[key]) moMap[key]={trips:0,rev:0,wage:0,fuel:0,toll:0,repair:0,other:0};
+    moMap[key].repair+=(+m.cost||+m.totalCost||+m.amount||0);
+  });
+  const moRows=Object.keys(moMap).sort((a,b)=>b.localeCompare(a));
+  const tbodyMo=document.getElementById("tbody-sc-thang");
+  if(!moRows.length){tbodyMo.innerHTML='<tr><td colspan="12" class="loading">Không có dữ liệu</td></tr>';return;}
+  tbodyMo.innerHTML=moRows.map((mo,i)=>{
+    const d=moMap[mo];
+    const totalC=d.wage+d.fuel+d.toll+d.repair+d.other;
+    const profit=d.rev-totalC;
+    const p=d.rev?Math.round(profit/d.rev*100):0;
+    const [yr,mn]=mo.split("-");
+    const fmtC=v=>v?fmt(v):'<span style="color:#94a3b8">—</span>';
+    return `<tr>
+      <td>${i+1}</td>
+      <td style="font-weight:700">Tháng ${mn}/${yr}</td>
+      <td style="font-weight:600">${d.trips}</td>
+      <td class="num" style="color:var(--accent);font-weight:700">${fmt(d.rev)}</td>
+      <td class="num" style="color:#7c3aed">${fmtC(d.wage)}</td>
+      <td class="num" style="color:#e67700">${fmtC(d.fuel)}</td>
+      <td class="num" style="color:#0369a1">${fmtC(d.toll)}</td>
+      <td class="num" style="color:#dc2626;font-weight:700">${fmtC(d.repair)}</td>
+      <td class="num" style="color:#64748b">${fmtC(d.other)}</td>
+      <td class="num" style="color:var(--red);font-weight:700">${fmt(totalC)}</td>
+      <td class="num" style="color:${profit>=0?"var(--green)":"var(--red)"};font-weight:700">${fmt(profit)}</td>
+      <td style="font-weight:700;color:${p>=0?"var(--green)":"var(--red)"}">${p}%</td>
+    </tr>`;
+  }).join("");
 }
-
-window.exportDebit=function(){
-  const kw=(document.getElementById("dSearch").value||"").toLowerCase().trim();
-  const from=document.getElementById("dFrom").value;
-  const to=document.getElementById("dTo").value;
-  const cus=document.getElementById("dCus").value;
-  let rows=[...trkStore];
-  if(kw) rows=rows.filter(r=>
-    (r.customer||"").toLowerCase().includes(kw)||
-    (r.cusCode||"").toLowerCase().includes(kw)||
-    (r.containerNo||"").toLowerCase().includes(kw)||
-    (r.vehicleNo||"").toLowerCase().includes(kw)||
-    (r.depot||"").toLowerCase().includes(kw)||
-    (r.port||"").toLowerCase().includes(kw)
-  );
-  if(from) rows=rows.filter(r=>(r.planDate||"")>=from);
-  if(to)   rows=rows.filter(r=>(r.planDate||"")<=to);
-  if(cus)  rows=rows.filter(r=>r.customer===cus);
-
-  const hdr=["#","Ngày","Khách hàng","Kho/Nhà máy","Mã KH","Số xe","Container","Nơi lấy","Nơi hạ",
-    "Đơn giá VC","Phí nâng","Phí hạ","Cược cont","Phí khác",
-    "Tổng trước thuế","VAT 10%","Tổng sau thuế"];
-  const data=rows.map((r,i)=>{
-    const c=costStore[r.id]||{};
-    const price=+r.price||0, lift=+c.lift||0, dropFee=+c.dropFee||0,
-          deposit=+c.deposit||0, other=+c.other||0;
-    const total=price+lift+dropFee+deposit+other;
-    const tax=Math.round(total*currentVAT/100);
-    return [i+1, fmtDate(r.planDate), r.customer||"", r.factory||"", r.cusCode||"",
-      r.vehicleNo||"", r.containerNo||"", r.depot||"", r.port||"",
-      price, lift, dropFee, deposit, other,
-      total, tax, total+tax];
-  });
-  csvDownload("CongNo_KhachHang.csv",[hdr,...data]);
-  showToast("✅ Xuất Excel công nợ thành công");
-};
-
-
-/* ══════════════════════════════════════
-   EXPORT PDF
-══════════════════════════════════════ */
-function markPrintActive(){
-  const isDebit = document.getElementById('tabDebit').classList.contains('active');
-  document.getElementById('panel-debit').classList.toggle('print-active', isDebit);
-  document.getElementById('panel-salary').classList.toggle('print-active', !isDebit);
-  // Ký tên: chỉ hiện đúng bảng
-  const signDebit = document.getElementById('signDebit');
-  const signSalary = document.getElementById('signSalary');
-  if(signDebit) signDebit.style.display = isDebit ? '' : 'none';
-  if(signSalary) signSalary.style.display = isDebit ? 'none' : '';
-}
-
-window.exportPDF = function(){
-  const isDebit = document.getElementById('tabDebit').classList.contains('active');
-  const title = isDebit ? 'BangCongNo' : 'BangLuong';
-  const date = new Date().toLocaleDateString('vi-VN').replace(/\//g,'-');
-  const origTitle = document.title;
-  document.title = `${title}_${date}`;
-  markPrintActive();
-  window.print();
-  setTimeout(() => document.title = origTitle, 1000);
-};
-
-
-  const kw=(document.getElementById("sSearch").value||"").toLowerCase().trim();
-  const from=document.getElementById("sFrom").value;
-  const to=document.getElementById("sTo").value;
-  const drv=document.getElementById("sDriver").value;
-  let rows=[...trkStore];
-  if(kw) rows=rows.filter(r=>
-    (r.driver||"").toLowerCase().includes(kw)||
-    (r.vehicleNo||"").toLowerCase().includes(kw)
-  );
-  if(from) rows=rows.filter(r=>(r.planDate||"")>=from);
-  if(to)   rows=rows.filter(r=>(r.planDate||"")<=to);
-  if(drv)  rows=rows.filter(r=>r.driver===drv);
-
-  // Sheet 1: Chi tiết
-  const hdr1=["#","Ngày","Lái xe","Số xe","Khách hàng","Container","Nơi lấy","Nơi hạ","KM","Lương chuyến","Ghi chú"];
-  const data1=rows.map((r,i)=>{
-    const c=costStore[r.id]||{};
-    const wage=+c.wage||+r.wage||0;
-    return [i+1, fmtDate(r.planDate), r.driver||"", r.vehicleNo||"",
-      r.customer||"", r.containerNo||"", r.depot||"", r.port||"",
-      r.km||0, wage, c.note||""];
-  });
-
-  // Sheet 2 header (tổng hợp theo lái xe) — ghép vào cùng file, cách 2 dòng trống
-  const hdr2=["#","Lái xe","Số xe","Số chuyến","Tổng KM","Tổng lương","Lương BQ/chuyến"];
-  const driverMap={};
-  rows.forEach(r=>{
-    const key=r.driver||"(Chưa có)";
-    if(!driverMap[key]) driverMap[key]={driver:key,vehicle:r.vehicleNo||"",trips:0,km:0,wage:0};
-    const c=costStore[r.id]||{};
-    driverMap[key].trips++;
-    driverMap[key].km+=+r.km||0;
-    driverMap[key].wage+=+c.wage||+r.wage||0;
-    if(r.vehicleNo) driverMap[key].vehicle=r.vehicleNo;
-  });
-  const data2=Object.values(driverMap).sort((a,b)=>b.wage-a.wage).map((d,i)=>[
-    i+1, d.driver, d.vehicle, d.trips, d.km,
-    d.wage, d.trips?Math.round(d.wage/d.trips):0
-  ]);
-
-  const allRows=[
-    hdr1,...data1,
-    [],[],["=== TỔNG HỢP THEO LÁI XE ==="],
-    hdr2,...data2
-  ];
-  csvDownload("BangLuong_LaiXe.csv", allRows);
-  showToast("✅ Xuất Excel bảng lương thành công");
-};
 </script>
 </body>
 </html>
